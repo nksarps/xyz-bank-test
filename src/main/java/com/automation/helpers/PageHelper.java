@@ -1,0 +1,94 @@
+package com.automation.helpers;
+
+import java.time.Duration;
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+/**
+ * Base helper for page objects with common WebDriver utilities.
+ */
+public class PageHelper {
+    protected final WebDriver driver;
+    protected final WebDriverWait wait;
+
+    /**
+     * Constructor that creates a helper with a default 10-second timeout.
+     *
+     * @param driver active WebDriver instance
+     */
+    public PageHelper(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    }
+
+    /**
+     * Finds a visible element.
+     *
+     * @param locator element locator
+     * @return visible element
+     */
+    public WebElement find(WebElement element) {
+        return wait.until(ExpectedConditions.visibilityOf(element));
+    }
+
+    /**
+     * Clicks an element when it becomes clickable.
+     *
+     * @param element page element
+     */
+    public void click(WebElement element) {
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+    }
+
+    /**
+     * Clears and types into a field.
+     *
+     * @param element page element
+     * @param value text to enter
+     */
+    public void type(WebElement element, String value) {
+        WebElement target = find(element);
+        target.clear();
+        target.sendKeys(value);
+    }
+
+    /**
+     * Gets the visible text of an element.
+     *
+     * @param element page element
+     * @return element text
+     */
+    public String getText(WebElement element) {
+        return find(element).getText();
+    }
+
+    /**
+     * Checks whether an element is visible within the wait timeout.
+     *
+     * @param element page element
+     * @return true if visible, false otherwise
+     */
+    public boolean isVisible(WebElement element) {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(element));
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    /**
+     * Selects an option by visible text from a dropdown.
+     *
+     * @param element page element
+     * @param visibleText option text to select
+     */
+    public void selectByVisibleText(WebElement element, String visibleText) {
+        WebElement target = find(element);
+        new Select(target).selectByVisibleText(visibleText);
+    }
+}
