@@ -6,11 +6,15 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
-
-
+/**
+ * Manages WebDriver lifecycle for test execution.
+ */
 public class SetUp {
     protected static WebDriver driver;
 
+    /**
+     * Initializes the WebDriver and navigates to the application URL.
+     */
     public static void setUp() {
         ChromeOptions options = new ChromeOptions();
 
@@ -28,10 +32,16 @@ public class SetUp {
         driver.get(applicationUrl);
     }
 
+    /**
+     * Placeholder for per-test navigation setup.
+     */
     public void beforeEachTest() {
         // This method will open the application URL before each test case
     }
 
+    /**
+     * Quits the WebDriver instance if it is active.
+     */
     public static void tearDown() {
         if (driver != null) {
             driver.quit();
