@@ -1,0 +1,26 @@
+{
+  "validAccounts": [
+    {
+      "customerName": "Hermoine Granger",
+      "currency": "Dollar"
+    },
+    {
+      "customerName": "Hermoine Granger",
+      "currency": "Pound"
+    },
+    {
+      "customerName": "Hermoine Granger",
+      "currency": "Rupee"
+    }
+  ],
+  "invalidAccounts": [
+    {
+      "customerName": "",
+      "currency": "Dollar"
+    },
+    {
+      "customerName": "Invalid Customer",
+      "currency": "Dollar"
+    }
+  ]
+}

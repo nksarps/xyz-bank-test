@@ -1,0 +1,38 @@
+{
+  "validWithdrawals": [
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "200"
+    },
+    {
+      "depositAmount": "5000",
+      "withdrawAmount": "1000"
+    },
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "1000"
+    }
+  ],
+  "invalidWithdrawals": [
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "2000"
+    },
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "0"
+    },
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "-100"
+    },
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "abc"
+    },
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": ""
+    }
+  ]
+}
