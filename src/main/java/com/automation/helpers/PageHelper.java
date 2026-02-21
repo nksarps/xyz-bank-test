@@ -51,8 +51,24 @@ public class PageHelper {
      * @param value text to enter
      */
     public void type(WebElement element, String value) {
-        WebElement target = find(element);
-        target.clear();
+        WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
+        try {
+            target.clear();
+        } catch (Exception e) {
+            // If clear fails, element might not support clearing (like search fields)
+            // Continue to send keys anyway
+        }
+        target.sendKeys(value);
+    }
+
+    /**
+     * Types into a field without clearing existing content.
+     *
+     * @param element page element
+     * @param value text to enter
+     */
+    public void typeWithoutClear(WebElement element, String value) {
+        WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
         target.sendKeys(value);
     }
 
