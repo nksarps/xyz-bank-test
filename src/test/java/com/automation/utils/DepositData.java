@@ -19,4 +19,14 @@ public class DepositData {
     public void setAmount(String amount) {
         this.amount = amount;
     }
+
+    /**
+     * Returns a readable string representation for parameterized test display names.
+     *
+     * @return formatted string with amount
+     */
+    @Override
+    public String toString() {
+        return amount;
+    }
 }

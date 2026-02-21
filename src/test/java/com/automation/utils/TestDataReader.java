@@ -149,6 +149,51 @@ public class TestDataReader {
         }
     }
 
+    /**
+     * Reads customer access test data for customer without account scenario.
+     *
+     * @return customer data for testing access without account
+     */
+    public static CustomerAccessData getCustomerWithoutAccountData() {
+        try (InputStream inputStream = TestDataReader.class.getClassLoader()
+                .getResourceAsStream("testdata/customerAccess.json")) {
+            CustomerAccessTestData data = objectMapper.readValue(inputStream, CustomerAccessTestData.class);
+            return data.getCustomerWithoutAccount();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read customer without account data from JSON", e);
+        }
+    }
+
+    /**
+     * Reads customer access test data for customer with account scenario.
+     *
+     * @return customer data for testing access with account
+     */
+    public static CustomerAccessData getCustomerWithAccountData() {
+        try (InputStream inputStream = TestDataReader.class.getClassLoader()
+                .getResourceAsStream("testdata/customerAccess.json")) {
+            CustomerAccessTestData data = objectMapper.readValue(inputStream, CustomerAccessTestData.class);
+            return data.getCustomerWithAccount();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read customer with account data from JSON", e);
+        }
+    }
+
+    /**
+     * Reads delete account test data from deleteAccount.json.
+     *
+     * @return delete account test data
+     */
+    public static DeleteAccountData getDeleteAccountData() {
+        try (InputStream inputStream = TestDataReader.class.getClassLoader()
+                .getResourceAsStream("testdata/deleteAccount.json")) {
+            DeleteAccountTestData data = objectMapper.readValue(inputStream, DeleteAccountTestData.class);
+            return data.getDeleteAccountTest();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read delete account data from JSON", e);
+        }
+    }
+
     // Inner classes for JSON deserialization
     private static class CustomerTestData {
         @com.fasterxml.jackson.annotation.JsonProperty("validCustomers")
@@ -220,6 +265,31 @@ public class TestDataReader {
 
         public List<ExistingCustomer> getExistingCustomers() {
             return existingCustomers;
+        }
+    }
+
+    private static class CustomerAccessTestData {
+        @com.fasterxml.jackson.annotation.JsonProperty("customerWithoutAccount")
+        private CustomerAccessData customerWithoutAccount;
+
+        @com.fasterxml.jackson.annotation.JsonProperty("customerWithAccount")
+        private CustomerAccessData customerWithAccount;
+
+        public CustomerAccessData getCustomerWithoutAccount() {
+            return customerWithoutAccount;
+        }
+
+        public CustomerAccessData getCustomerWithAccount() {
+            return customerWithAccount;
+        }
+    }
+
+    private static class DeleteAccountTestData {
+        @com.fasterxml.jackson.annotation.JsonProperty("deleteAccountTest")
+        private DeleteAccountData deleteAccountTest;
+
+        public DeleteAccountData getDeleteAccountTest() {
+            return deleteAccountTest;
         }
     }
 }

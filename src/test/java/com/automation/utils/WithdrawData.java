@@ -30,4 +30,14 @@ public class WithdrawData {
     public void setWithdrawAmount(String withdrawAmount) {
         this.withdrawAmount = withdrawAmount;
     }
+
+    /**
+     * Returns a readable string representation for parameterized test display names.
+     *
+     * @return formatted string with deposit and withdrawal amounts
+     */
+    @Override
+    public String toString() {
+        return "Deposit: " + depositAmount + ", Withdraw: " + withdrawAmount;
+    }
 }
