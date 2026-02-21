@@ -30,6 +30,9 @@ public class CustomersPage {
     @FindBy(xpath = "//button[contains(.,'Delete')]")
     private List<WebElement> deleteButtons;
 
+    @FindBy(css = "button.btn.home")
+    private WebElement homeButton;
+
     /**
      * Constructor that initializes PageFactory elements and helper utilities.
      *
@@ -92,5 +95,12 @@ public class CustomersPage {
      */
     public List<WebElement> getCustomerRows() {
         return customerRows;
+    }
+
+    /**
+     * Clicks the Home button to return to the main landing page.
+     */
+    public void goToHome() {
+        helper.click(homeButton);
     }
 }
