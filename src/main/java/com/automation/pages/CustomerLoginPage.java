@@ -1,9 +1,12 @@
 package com.automation.pages;
 
+import java.util.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 
 import com.automation.helpers.PageHelper;
 
@@ -48,5 +51,24 @@ public class CustomerLoginPage {
     public void loginAs(String customerName) {
         helper.selectByVisibleText(customerDropdown, customerName);
         helper.click(loginButton);
+    }
+
+    /**
+     * Checks if a customer exists in the login dropdown.
+     *
+     * @param customerName name of the customer to check
+     * @return true if customer is in the dropdown
+     */
+    public boolean isCustomerInDropdown(String customerName) {
+        Select select = new Select(customerDropdown);
+        List<WebElement> options = select.getOptions();
+        
+        for (WebElement option : options) {
+            String optionText = option.getText().trim();
+            if (optionText.equals(customerName)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
