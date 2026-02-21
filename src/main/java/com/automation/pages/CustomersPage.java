@@ -16,8 +16,9 @@ public class CustomersPage {
     private final PageHelper helper;
     
 
-    // @FindBy(xpath = "//input[@ng-model='searchCustomer']")
-    @FindBy(className = "form-control")
+    
+    // @FindBy(className = "form-control")
+    @FindBy(xpath = "//input[@ng-model='searchCustomer']")
     private WebElement searchInput;
 
     // Using the xpath locator to find customer rows and delete buttons because they do not have unique IDs or class names
@@ -56,6 +57,12 @@ public class CustomersPage {
      */
     public void searchCustomer(String keyword) {
         helper.type(searchInput, keyword);
+        // Give Angular time to filter the results
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**
