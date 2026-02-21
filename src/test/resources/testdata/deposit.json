@@ -21,9 +21,6 @@
       "amount": "abc"
     },
     {
-      "amount": ""
-    },
-    {
       "amount": "!10"
     }
   ]

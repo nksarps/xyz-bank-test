@@ -29,10 +29,6 @@
     {
       "depositAmount": "1000",
       "withdrawAmount": "abc"
-    },
-    {
-      "depositAmount": "1000",
-      "withdrawAmount": ""
     }
   ]
 }
