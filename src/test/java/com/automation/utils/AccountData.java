@@ -30,4 +30,14 @@ public class AccountData {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    /**
+     * Returns a readable string representation for parameterized test display names.
+     *
+     * @return formatted string with customer name and currency
+     */
+    @Override
+    public String toString() {
+        return customerName + " - " + currency;
+    }
 }
