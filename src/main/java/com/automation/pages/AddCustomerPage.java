@@ -31,6 +31,9 @@ public class AddCustomerPage {
     @FindBy(className = "btn-default")
     private WebElement addCustomerSubmitButton;
 
+    @FindBy(css = "button.btn.home")
+    private WebElement homeButton;
+
     /**
      * Constructor that initializes PageFactory elements and helper utilities.
      *
@@ -70,5 +73,12 @@ public class AddCustomerPage {
         String message = alert.getText();
         alert.accept();
         return message;
+    }
+
+    /**
+     * Clicks the Home button to return to the main landing page.
+     */
+    public void goToHome() {
+        helper.click(homeButton);
     }
 }
