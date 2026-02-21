@@ -46,6 +46,10 @@ public class CustomerDashboardPage {
     @FindBy(className = "logout")
     private WebElement logoutButton;
 
+    // Message displayed when customer has no account
+    @FindBy(xpath = "//span[@ng-show='noAccount']")
+    private WebElement noAccountMessage;
+
     /**
      * Constructor that initializes PageFactory elements and helper utilities.
      *
@@ -128,5 +132,24 @@ public class CustomerDashboardPage {
      */
     public void logout() {
         helper.click(logoutButton);
+    }
+
+    /**
+     * Checks if the "no account" message is visible.
+     * This message appears when a customer logs in but has no account created.
+     *
+     * @return true if no account message is visible
+     */
+    public boolean isNoAccountMessageVisible() {
+        return helper.isVisible(noAccountMessage);
+    }
+
+    /**
+     * Gets the no account message text.
+     *
+     * @return the no account message text
+     */
+    public String getNoAccountMessage() {
+        return helper.getText(noAccountMessage);
     }
 }
