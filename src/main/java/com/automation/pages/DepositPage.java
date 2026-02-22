@@ -13,7 +13,7 @@ import com.automation.helpers.PageHelper;
 public class DepositPage {
     private final PageHelper helper;
 
-    //@FindBy(xpath = "//input[@ng-model='amount']")
+    // @FindBy(xpath = "//input[@ng-model='amount']")
     @FindBy(className = "form-control")
     private WebElement amountInput;
 
