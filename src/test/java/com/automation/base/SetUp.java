@@ -117,7 +117,7 @@ public class SetUp {
         ChromeOptions options = new ChromeOptions();
 
         Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
-        String applicationUrl = dotenv.get("APPLICATION_URL", System.getenv("APPLICATION_URL"));
+        String applicationUrl = dotenv.get("APPLICATION_URL");
 
         String headless = System.getProperty("headless");
         if ("true".equalsIgnoreCase(headless)) {
