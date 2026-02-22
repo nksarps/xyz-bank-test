@@ -36,7 +36,8 @@ public class SetUp {
 
     static {
         /**
-         * Configures Java Util Logging (JUL) to display only the log message without additional metadata.
+         * Configures Java Util Logging (JUL) to display only the log message without
+         * additional metadata.
          * Also suppresses Selenium DevTools CDP version warnings.
          */
         try (InputStream configFile = SetUp.class.getClassLoader().getResourceAsStream("logging.properties")) {
@@ -46,7 +47,7 @@ public class SetUp {
         } catch (Exception e) {
             System.err.println("Could not load logging.properties: " + e.getMessage());
         }
-        
+
         // Fallback configuration in case properties file is not loaded
         System.setProperty("java.util.logging.SimpleFormatter.format", "%5$s%n");
         java.util.logging.Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
@@ -98,7 +99,7 @@ public class SetUp {
 
     // Creating instances of the page objects to be used across tests
     protected LoginPage loginPage;
-    protected CustomerLoginPage customerLoginPage; 
+    protected CustomerLoginPage customerLoginPage;
     protected WithdrawalPage withdrawalPage;
     protected CustomerDashboardPage customerDashboardPage;
     protected CustomersPage customersPage;
@@ -115,8 +116,8 @@ public class SetUp {
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
 
-        Dotenv dotenv = Dotenv.load();
-        String applicationUrl = dotenv.get("APPLICATION_URL");
+        Dotenv dotenv = Dotenv.configure().ignoreIfMissing().load();
+        String applicationUrl = dotenv.get("APPLICATION_URL", System.getenv("APPLICATION_URL"));
 
         String headless = System.getProperty("headless");
         if ("true".equalsIgnoreCase(headless)) {
@@ -140,8 +141,6 @@ public class SetUp {
         bankManagerLoginPage = new BankManagerLoginPage(driver);
         depositPage = new DepositPage(driver);
     }
-
-
 
     /**
      * Quits the WebDriver instance if it is active.
