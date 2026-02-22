@@ -65,6 +65,16 @@ public class TransactionsPage {
     }
 
     /**
+     * Checks if the reset button is visible on the page.
+     * Note: For security reasons, customers should NOT be able to reset/alter transaction history.
+     *
+     * @return true if reset button is visible, false otherwise
+     */
+    public boolean isResetButtonVisible() {
+        return helper.isVisible(resetButton);
+    }
+
+    /**
      * Resets the transactions table/filters.
      */
     public void reset() {
