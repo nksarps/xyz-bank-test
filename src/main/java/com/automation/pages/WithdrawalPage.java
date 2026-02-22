@@ -13,8 +13,7 @@ import com.automation.helpers.PageHelper;
 public class WithdrawalPage {
     private final PageHelper helper;
 
-    // @FindBy(xpath = "//input[@ng-model='amount']")
-    @FindBy(className = "form-control")
+    @FindBy(xpath = "//input[@ng-model='amount']")
     private WebElement amountInput;
 
     // @FindBy(css = "button[type='submit']")
