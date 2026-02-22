@@ -17,13 +17,8 @@ import com.automation.utils.TestDataReader;
 public class CustomerAccessTest extends SetUp {
 
     /**
-     * Tests that a customer without an account sees the "Please open an account" message.
-     * 
-     * Test Flow:
-     * 1. Bank manager adds a new customer
-     * 2. No account is opened for the customer
-     * 3. Customer attempts to login
-     * 4. Customer should see "Please open an account with us." message
+     * Tests that a customer without an account sees the "Please open an account"
+     * message.
      */
     @Test
     @DisplayName("Customer without account should see 'Please open an account' message")
@@ -38,7 +33,7 @@ public class CustomerAccessTest extends SetUp {
 
         // Load test data from JSON
         CustomerAccessData customerData = TestDataReader.getCustomerWithoutAccountData();
-        
+
         // Add a new customer with unique name (append timestamp for uniqueness)
         String uniqueSuffix = String.valueOf(System.currentTimeMillis());
         String firstName = customerData.getFirstName();
@@ -46,11 +41,11 @@ public class CustomerAccessTest extends SetUp {
         String postCode = customerData.getPostCode();
 
         String alertMessage = addCustomerPage.addCustomer(firstName, lastName, postCode);
-        
+
         // Verify customer was added successfully
         assertNotNull(alertMessage, "Alert message should not be null");
-        assertTrue(alertMessage.contains("Customer added successfully"), 
-            String.format("Customer should be added successfully. Alert: '%s'", alertMessage));
+        assertTrue(alertMessage.contains("Customer added successfully"),
+                String.format("Customer should be added successfully. Alert: '%s'", alertMessage));
 
         // Extract customer ID (though we won't use it, confirms success)
         String customerId = AlertMessageParser.extractCustomerId(alertMessage);
@@ -70,16 +65,17 @@ public class CustomerAccessTest extends SetUp {
         // Step 5: Login as the newly created customer
         String customerFullName = firstName + " " + lastName;
         customerLoginPage.loginAs(customerFullName);
-        
+
         // Step 6: Verify dashboard loads
         assertTrue(customerDashboardPage.isLoaded(), "Customer Dashboard should be loaded");
 
         // Step 7: Verify "no account" message is displayed
-        assertTrue(customerDashboardPage.isNoAccountMessageVisible(), 
-            "No account message should be visible for customer without account");
+        assertTrue(customerDashboardPage.isNoAccountMessageVisible(),
+                "No account message should be visible for customer without account");
 
         String noAccountMessage = customerDashboardPage.getNoAccountMessage();
         assertTrue(noAccountMessage.contains("Please open an account with us."),
-            String.format("Expected message to contain 'Please open an account with us.' but got: '%s'", noAccountMessage));
+                String.format("Expected message to contain 'Please open an account with us.' but got: '%s'",
+                        noAccountMessage));
     }
 }

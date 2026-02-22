@@ -27,7 +27,8 @@ public class AddCustomerTest extends SetUp {
     class ValidCustomerTests {
 
         /**
-         * Tests adding valid customers with proper alphabetic names and numeric postal codes.
+         * Tests adding valid customers with proper alphabetic names and numeric postal
+         * codes.
          *
          * @param customerData valid customer test data
          */
@@ -45,33 +46,27 @@ public class AddCustomerTest extends SetUp {
 
             // Add customer
             String alertMessage = addCustomerPage.addCustomer(
-                customerData.getFirstName(),
-                customerData.getLastName(),
-                customerData.getPostCode()
-            );
+                    customerData.getFirstName(),
+                    customerData.getLastName(),
+                    customerData.getPostCode());
 
-            // Checking to ensure alert message is returned and contains expected success text
+            // Checking to ensure alert message is returned and contains expected success
+            // text
             assertNotNull(alertMessage, "Alert message should not be null");
-            assertTrue(alertMessage.contains("Customer added successfully"), 
-                String.format("Expected success message but got: '%s'", alertMessage));
+            assertTrue(alertMessage.contains("Customer added successfully"),
+                    String.format("Expected success message but got: '%s'", alertMessage));
         }
     }
 
     /**
      * Negative test cases for adding invalid customers.
-     * These tests verify that the system should reject invalid input.
-     * Note: Currently FAILING - system has validation bug and accepts invalid data.
      */
     @Nested
     @DisplayName("Invalid Customer Scenarios")
     class InvalidCustomerTests {
 
         /**
-         * Tests that invalid customers should be rejected by the system.
-         * Invalid data includes: numbers in names, letters in postal codes.
-         * 
-         * KNOWN BUG: This test currently FAILS because the system does not validate
-         * and incorrectly accepts invalid data.
+         * Tests that invalid customers are rejected by the system.
          *
          * @param customerData invalid customer test data
          */
@@ -80,9 +75,9 @@ public class AddCustomerTest extends SetUp {
         @DisplayName("Should reject invalid data")
         void testAddInvalidCustomer(CustomerData customerData) {
             // Skip tests with empty fields - HTML5 validation prevents submission
-            if (customerData.getFirstName().isEmpty() || 
-                customerData.getLastName().isEmpty() || 
-                customerData.getPostCode().isEmpty()) {
+            if (customerData.getFirstName().isEmpty() ||
+                    customerData.getLastName().isEmpty() ||
+                    customerData.getPostCode().isEmpty()) {
                 return;
             }
 
@@ -96,16 +91,17 @@ public class AddCustomerTest extends SetUp {
 
             // Attempt to add invalid customer
             String alertMessage = addCustomerPage.addCustomer(
-                customerData.getFirstName(),
-                customerData.getLastName(),
-                customerData.getPostCode()
-            );
+                    customerData.getFirstName(),
+                    customerData.getLastName(),
+                    customerData.getPostCode());
 
             // Verify that invalid data is rejected
             assertNotNull(alertMessage, "Alert should appear");
-            assertFalse(alertMessage.contains("Customer added successfully"), 
-                String.format("System should NOT accept invalid customer data. First Name: '%s', Last Name: '%s', Post Code: '%s', Alert: '%s'",
-                    customerData.getFirstName(), customerData.getLastName(), customerData.getPostCode(), alertMessage));
+            assertFalse(alertMessage.contains("Customer added successfully"),
+                    String.format(
+                            "System should NOT accept invalid customer data. First Name: '%s', Last Name: '%s', Post Code: '%s', Alert: '%s'",
+                            customerData.getFirstName(), customerData.getLastName(), customerData.getPostCode(),
+                            alertMessage));
         }
     }
 

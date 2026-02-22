@@ -10,18 +10,13 @@ import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 
 /**
- * Tests for Transaction Viewing functionality based on acceptance criteria.
- * 
- * AC1: Viewing Transactions
- * - Customers should be able to view a list of their recent transactions.
+ * Tests for Transaction Viewing functionality.
  */
 @DisplayName("Transaction View Tests (AC1)")
 public class TransactionViewTest extends SetUp {
 
     /**
-     * AC1: Customers should be able to view a list of their recent transactions.
-     * 
-     * Test 1: Verify customers can navigate to and view the Transactions page.
+     * Verifies that customers can navigate to and view the Transactions page.
      */
     @Test
     @DisplayName("Customer can access Transactions page")
@@ -37,14 +32,14 @@ public class TransactionViewTest extends SetUp {
 
         // Navigate to Transactions page
         customerDashboardPage.openTransactions();
-        
+
         // Verify Transactions page loads successfully
-        assertTrue(transactionsPage.isLoaded(), 
-            "Transactions page should be loaded and accessible to customers");
-        
+        assertTrue(transactionsPage.isLoaded(),
+                "Transactions page should be loaded and accessible to customers");
+
         // Verify the page displays the transaction table (even if empty)
-        assertNotNull(transactionsPage.getTransactionRows(), 
-            "Transaction table should be present on the page");
+        assertNotNull(transactionsPage.getTransactionRows(),
+                "Transaction table should be present on the page");
     }
 
 }

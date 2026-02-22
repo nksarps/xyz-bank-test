@@ -10,26 +10,13 @@ import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 
 /**
- * Tests for Transaction Security functionality based on acceptance criteria.
- * 
- * AC4: Transaction Security
- * - Customers should not be able to reset or alter their transaction history.
- * 
- * SECURITY REQUIREMENT: The presence of a Reset button on the Transactions page
- * violates this acceptance criterion as it allows customers to clear their transaction history.
+ * Tests for Transaction Security functionality.
  */
 @DisplayName("Transaction Security Tests (AC4)")
 public class TransactionSecurityTest extends SetUp {
 
     /**
-     * AC4: Customers should not be able to reset their transaction history.
-     * 
-     * CRITICAL SECURITY TEST: This test verifies that customers cannot reset/clear
-     * their transaction history. The Reset button should NOT be accessible to customers.
-     * 
-     * Expected Result: FAIL (as Reset button currently exists)
-     * Security Issue: Customers can currently reset their transaction history, which
-     * violates audit trail requirements and financial regulations.
+     * Verifies that customers cannot reset or clear their transaction history.
      */
     @Test
     @DisplayName("SECURITY: Customers should NOT have access to Reset button on Transactions page")
@@ -46,7 +33,7 @@ public class TransactionSecurityTest extends SetUp {
         // Perform some transactions to generate history
         customerDashboardPage.openDeposit();
         depositPage.deposit("1000");
-        
+
         customerDashboardPage.openDeposit();
         depositPage.deposit("500");
 
@@ -56,9 +43,9 @@ public class TransactionSecurityTest extends SetUp {
 
         // SECURITY CHECK: Verify Reset button is NOT visible to customers
         boolean resetButtonVisible = transactionsPage.isResetButtonVisible();
-        
-        assertFalse(resetButtonVisible, 
-            "SECURITY VIOLATION: Reset button should NOT be available to customers. " +
-            "Customers must not be able to reset or alter their transaction history.");
+
+        assertFalse(resetButtonVisible,
+                "SECURITY VIOLATION: Reset button should NOT be available to customers. " +
+                        "Customers must not be able to reset or alter their transaction history.");
     }
 }
