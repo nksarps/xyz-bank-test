@@ -72,8 +72,8 @@ jobs:
 
           PASSED=$((TOTAL - FAILED - SKIPPED))
 
-          # Extract failing test names using [FAIL] marker from surefire .txt reports
-          FAILING_TESTS_RAW=$(grep -h "^\[FAIL\]" target/surefire-reports/*.txt 2>/dev/null \
+          # Extract failing test names using [FAIL] marker from surefire XML reports (system-err)
+          FAILING_TESTS_RAW=$(grep -oh '\[FAIL\][^<]*' target/surefire-reports/TEST-*.xml 2>/dev/null \
             | sed 's/ ==>.*//' \
             | sort -u || true)
 
