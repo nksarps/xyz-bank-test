@@ -2,6 +2,7 @@ package com.automation.pages;
 
 import java.util.List;
 
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -46,14 +47,6 @@ public class TransactionsPage {
         return helper.isVisible(backButton);
     }
 
-    /**
-     * Gets the count of transactions displayed in the table.
-     *
-     * @return number of transaction rows
-     */
-    public int getTransactionCount() {
-        return transactionRows.size();
-    }
 
     /**
      * Gets all transaction rows.
