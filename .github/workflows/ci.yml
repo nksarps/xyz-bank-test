@@ -105,7 +105,7 @@ jobs:
         with:
           payload: |
             {
-              "text": "Repository: ${{ github.repository }}\nBranch: ${{ github.ref_name }}\nCommit: ${{ steps.test_results.outputs.commit_sha }}\n\nStatus: ${{ job.status == 'success' && 'Pass' || 'Fail' }}\n\n${{ job.status == 'success' && 'All tests passed.' || format('Failing Tests:\n{0}', steps.test_results.outputs.failing_tests_json) }}\n\nFull Results:\nTotal Tests: ${{ steps.test_results.outputs.total }}\nFailed Tests: ${{ steps.test_results.outputs.failed }}\nSkipped Tests: ${{ steps.test_results.outputs.skipped }}\n\nRun: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+              "text": "${{ job.status == 'success' && '✅ *CI Pipeline Passed*' || '🚨 *CI Pipeline Failed*' }}\n\n📦 *Repository:* ${{ github.repository }}\n🌿 *Branch:* ${{ github.ref_name }}\n🧾 *Commit:* ${{ steps.test_results.outputs.commit_sha }}\n📊 *Status:* ${{ job.status == 'success' && '✅ PASSED' || '❌ FAILED' }}\n\n━━━━━━━━━━━━━━━━━━\n📈 *Test Summary*\n• Total Tests: ${{ steps.test_results.outputs.total }}\n• Failed: ${{ steps.test_results.outputs.failed }} ${{ job.status == 'success' && '' || '❌' }}\n• Skipped: ${{ steps.test_results.outputs.skipped }}\n━━━━━━━━━━━━━━━━━━\n\n${{ job.status == 'success' && '✅ *All Tests Passed*' || format('🔴 *Failing Tests*\n{0}', steps.test_results.outputs.failing_tests_json) }}\n\n🔗 *Run Details:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
@@ -118,22 +118,25 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: "CI ${{ job.status }}: ${{ github.repository }}"
+          subject: "CI ${{ job.status == 'success' && '✅ PASSED' || '❌ FAILED' }}: ${{ github.repository }}"
           to: ${{ secrets.NOTIFY_EMAIL_TO }}
           from: ${{ secrets.NOTIFY_EMAIL_FROM }}
           body: |
-            Repository: ${{ github.repository }}
-            Branch: ${{ github.ref_name }}
-            Commit: ${{ steps.test_results.outputs.commit_sha }}
+            ${{ job.status == 'success' && '✅ *CI Pipeline Passed*' || '🚨 *CI Pipeline Failed*' }}
 
-            Status: ${{ job.status == 'success' && 'Pass' || 'Fail' }}
+            📦 *Repository:* ${{ github.repository }}
+            🌿 *Branch:* ${{ github.ref_name }}
+            🧾 *Commit:* ${{ steps.test_results.outputs.commit_sha }}
+            📊 *Status:* ${{ job.status == 'success' && '✅ PASSED' || '❌ FAILED' }}
 
-            ${{ job.status == 'success' && 'All tests passed.' || 'Failing Tests:' }}
-            ${{ steps.test_results.outputs.failing_tests_raw }}
+            ━━━━━━━━━━━━━━━━━━
+            📈 *Test Summary*
+            • Total Tests: ${{ steps.test_results.outputs.total }}
+            • Failed: ${{ steps.test_results.outputs.failed }} ${{ job.status == 'success' && '' || '❌' }}
+            • Skipped: ${{ steps.test_results.outputs.skipped }}
+            ━━━━━━━━━━━━━━━━━━
 
-            Full Results:
-            Total Tests: ${{ steps.test_results.outputs.total }}
-            Failed Tests: ${{ steps.test_results.outputs.failed }}
-            Skipped Tests: ${{ steps.test_results.outputs.skipped }}
+            ${{ job.status == 'success' && '✅ *All Tests Passed*' || '🔴 *Failing Tests*' }}
+            ${{ job.status == 'success' && '' || steps.test_results.outputs.failing_tests_raw }}
 
-            Run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            🔗 *Run Details:* ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
