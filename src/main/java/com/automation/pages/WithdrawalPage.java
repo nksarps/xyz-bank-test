@@ -13,15 +13,13 @@ import com.automation.helpers.PageHelper;
 public class WithdrawalPage {
     private final PageHelper helper;
 
-    @FindBy(xpath = "//input[@ng-model='amount']")
+    @FindBy(xpath = "//form[@ng-submit='withdrawl()']//input[@ng-model='amount']")
     private WebElement amountInput;
 
-    // @FindBy(css = "button[type='submit']")
-    @FindBy(className = "btn-default")
+    @FindBy(xpath = "//form[@ng-submit='withdrawl()']//button[@type='submit']")
     private WebElement withdrawButton;
 
-    // @FindBy(xpath = "//span[@ng-show='message' or @ng-show='notEnough']/strong")
-    @FindBy(className = "error")
+    @FindBy(xpath = "//form[@ng-submit='withdrawl()']/following-sibling::span[contains(@class,'error')]")
     private WebElement resultMessage;
 
     /**
@@ -40,7 +38,7 @@ public class WithdrawalPage {
      * @return true when the amount input is visible
      */
     public boolean isLoaded() {
-        return helper.isVisible(amountInput);
+        return helper.isVisible(withdrawButton);
     }
 
     /**
@@ -59,6 +57,9 @@ public class WithdrawalPage {
      * @return result message text (success or error)
      */
     public String getResultMessage() {
+        if (!helper.isVisible(resultMessage)) {
+            return "";
+        }
         return helper.getText(resultMessage);
     }
 }

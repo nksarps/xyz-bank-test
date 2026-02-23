@@ -2,6 +2,7 @@ package com.automation.helpers;
 
 import java.time.Duration;
 
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -42,7 +43,16 @@ public class PageHelper {
      * @param element page element
      */
     public void click(WebElement element) {
-        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+        for (int attempt = 0; attempt < 2; attempt++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(element)).click();
+                return;
+            } catch (StaleElementReferenceException ex) {
+                if (attempt == 1) {
+                    throw ex;
+                }
+            }
+        }
     }
 
     /**
@@ -52,14 +62,23 @@ public class PageHelper {
      * @param value text to enter
      */
     public void type(WebElement element, String value) {
-        WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
-        try {
-            target.clear();
-        } catch (Exception e) {
-            // If clear fails, element might not support clearing (like search fields)
-            // Continue to send keys anyway
+        for (int attempt = 0; attempt < 2; attempt++) {
+            try {
+                WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
+                try {
+                    target.clear();
+                } catch (Exception e) {
+                    // If clear fails, element might not support clearing (like search fields)
+                    // Continue to send keys anyway
+                }
+                target.sendKeys(value);
+                return;
+            } catch (StaleElementReferenceException ex) {
+                if (attempt == 1) {
+                    throw ex;
+                }
+            }
         }
-        target.sendKeys(value);
     }
 
     /**
@@ -69,8 +88,17 @@ public class PageHelper {
      * @param value text to enter
      */
     public void typeWithoutClear(WebElement element, String value) {
-        WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
-        target.sendKeys(value);
+        for (int attempt = 0; attempt < 2; attempt++) {
+            try {
+                WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
+                target.sendKeys(value);
+                return;
+            } catch (StaleElementReferenceException ex) {
+                if (attempt == 1) {
+                    throw ex;
+                }
+            }
+        }
     }
 
     /**
@@ -80,7 +108,16 @@ public class PageHelper {
      * @return element text
      */
     public String getText(WebElement element) {
-        return find(element).getText();
+        for (int attempt = 0; attempt < 2; attempt++) {
+            try {
+                return find(element).getText();
+            } catch (StaleElementReferenceException ex) {
+                if (attempt == 1) {
+                    throw ex;
+                }
+            }
+        }
+        return "";
     }
 
     /**
@@ -90,12 +127,19 @@ public class PageHelper {
      * @return true if visible, false otherwise
      */
     public boolean isVisible(WebElement element) {
-        try {
-            wait.until(ExpectedConditions.visibilityOf(element));
-            return true;
-        } catch (Exception ex) {
-            return false;
+        for (int attempt = 0; attempt < 2; attempt++) {
+            try {
+                wait.until(ExpectedConditions.visibilityOf(element));
+                return true;
+            } catch (StaleElementReferenceException ex) {
+                if (attempt == 1) {
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
         }
+        return false;
     }
 
     /**

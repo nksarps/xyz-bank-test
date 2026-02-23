@@ -13,11 +13,12 @@ import com.automation.helpers.PageHelper;
 public class DepositPage {
     private final PageHelper helper;
 
-    @FindBy(xpath = "//input[@ng-model='amount']")
+    //@FindBy(xpath = "//input[@ng-model='amount']")
+    @FindBy(className = "form-control")
     private WebElement amountInput;
 
-    // @FindBy(css = "button[type='submit']")
-    @FindBy(className = "btn-default")
+    // @FindBy(className = "btn-default")
+    @FindBy(css = "button[type='submit']")
     private WebElement depositButton;
 
     // @FindBy(xpath = "//span[@ng-show='message']/strong")
@@ -31,7 +32,7 @@ public class DepositPage {
      */
     public DepositPage(WebDriver driver) {
         this.helper = new PageHelper(driver);
-
+        
         PageFactory.initElements(driver, this);
     }
 
