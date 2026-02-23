@@ -59,12 +59,14 @@ public class WithdrawalTest extends SetUp {
 			assertTrue(depositMessage.contains("Deposit Successful"),
 				String.format("Expected deposit success message but got: '%s'", depositMessage));
 
+			
+			// Withdraw the specified amount and verify balance updates correctly.
 			customerDashboardPage.openWithdrawal();
 			assertTrue(withdrawalPage.isLoaded(), "Withdrawal page should be loaded");
 
 			withdrawalPage.withdraw(withdrawData.getWithdrawAmount());
 
-			// Verify final balance delta; message can be empty if UI does not surface it.
+			// Verify final balance 
 			String resultMessage = withdrawalPage.getResultMessage();
 			if (!resultMessage.isEmpty()) {
 				assertFalse(resultMessage.contains("Transaction Failed"),
@@ -79,6 +81,80 @@ public class WithdrawalTest extends SetUp {
 			assertEquals(expectedBalance, newBalance,
 				String.format("Balance should be updated. Initial: %d, Deposited: %s, Withdrawn: %s, Expected: %d, Actual: %d",
 					initialBalance, withdrawData.getDepositAmount(), withdrawData.getWithdrawAmount(), expectedBalance, newBalance));
+		}
+	}
+
+	/**
+	 * Negative test cases for insufficient balance withdrawals.
+	 */
+	@Nested
+	@DisplayName("Insufficient Balance Withdrawal Scenarios")
+	class InsufficientBalanceWithdrawalTests {
+
+		/**
+		 * Tests that withdrawals greater than current balance are rejected.
+		 * The account is reset to zero balance before each data set is executed.
+		 *
+		 * @param withdrawData insufficient balance withdrawal test data
+		 */
+		@ParameterizedTest(name = "Should reject insufficient-balance withdrawal: {0}")
+		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideInsufficientBalanceWithdrawals")
+		@DisplayName("Should reject amount greater than balance")
+		void testInsufficientBalanceWithdrawal(WithdrawData withdrawData) {
+			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
+
+			loginPage.goToCustomerLogin();
+			assertTrue(customerLoginPage.isLoaded(), "Customer Login page should be loaded");
+
+			customerLoginPage.loginAs(customer.getName());
+			assertTrue(customerDashboardPage.isLoaded(), "Customer Dashboard should be loaded");
+
+			emptyAccountBalance();
+
+			customerDashboardPage.openDeposit();
+			assertTrue(depositPage.isLoaded(), "Deposit page should be loaded");
+
+			depositPage.deposit(withdrawData.getDepositAmount());
+
+			String seededBalanceStr = customerDashboardPage.getBalance();
+			int seededBalance = Integer.parseInt(seededBalanceStr);
+
+			customerDashboardPage.openWithdrawal();
+			assertTrue(withdrawalPage.isLoaded(), "Withdrawal page should be loaded");
+
+			withdrawalPage.withdraw(withdrawData.getWithdrawAmount());
+
+			String resultMessage = withdrawalPage.getResultMessage();
+			assertTrue(resultMessage.contains("Transaction Failed. You can not withdraw amount more than the balance."),
+				String.format("Expected insufficient-balance error message. Withdraw: %s, Actual message: '%s'",
+					withdrawData.getWithdrawAmount(), resultMessage));
+
+			String newBalanceStr = customerDashboardPage.getBalance();
+			int newBalance = Integer.parseInt(newBalanceStr);
+
+			assertEquals(seededBalance, newBalance,
+				String.format("Insufficient-balance withdrawal should not change balance. Deposit: %s, Withdraw: %s, Expected: %d, Actual: %d",
+					withdrawData.getDepositAmount(), withdrawData.getWithdrawAmount(), seededBalance, newBalance));
+		}
+
+		private void emptyAccountBalance() {
+			String currentBalanceStr = customerDashboardPage.getBalance();
+			int currentBalance = Integer.parseInt(currentBalanceStr);
+
+			if (currentBalance <= 0) {
+				return;
+			}
+
+			customerDashboardPage.openWithdrawal();
+			assertTrue(withdrawalPage.isLoaded(), "Withdrawal page should be loaded");
+
+			withdrawalPage.withdraw(String.valueOf(currentBalance));
+
+			String balanceAfterResetStr = customerDashboardPage.getBalance();
+			int balanceAfterReset = Integer.parseInt(balanceAfterResetStr);
+			assertEquals(0, balanceAfterReset,
+				String.format("Account should be emptied before insufficient-balance test. Before: %d, After: %d",
+					currentBalance, balanceAfterReset));
 		}
 	}
 
@@ -122,21 +198,13 @@ public class WithdrawalTest extends SetUp {
 
 			withdrawalPage.withdraw(withdrawData.getWithdrawAmount());
 
-			// Some invalid inputs may not surface a message; treat missing message as empty.
-			String message = withdrawalPage.getResultMessage();
-
 			String newBalanceStr = customerDashboardPage.getBalance();
 			int newBalance = Integer.parseInt(newBalanceStr);
 			int expectedBalance = initialBalance + Integer.parseInt(withdrawData.getDepositAmount());
 
-			if (newBalance != expectedBalance) {
-				System.out.println("INFO: Application accepted invalid withdrawal amount: '" + withdrawData.getWithdrawAmount()
-					+ "' (Balance changed from " + expectedBalance + " to " + newBalance + ")");
-			} else {
-				assertFalse(message.contains("Transaction successful"),
-					String.format("System should NOT show success message for invalid withdrawal amount: '%s', Message: '%s'",
-						withdrawData.getWithdrawAmount(), message));
-			}
+			assertEquals(expectedBalance, newBalance,
+				String.format("Invalid withdrawal should not change balance. Input: '%s', Expected: %d, Actual: %d",
+					withdrawData.getWithdrawAmount(), expectedBalance, newBalance));
 		}
 	}
 
@@ -156,5 +224,14 @@ public class WithdrawalTest extends SetUp {
 	 */
 	static Stream<WithdrawData> provideInvalidWithdrawals() {
 		return TestDataReader.getInvalidWithdrawals().stream();
+	}
+
+	/**
+	 * Provides insufficient balance withdrawal data for parameterized tests.
+	 *
+	 * @return stream of insufficient balance withdrawal data
+	 */
+	static Stream<WithdrawData> provideInsufficientBalanceWithdrawals() {
+		return TestDataReader.getInsufficientBalanceWithdrawals().stream();
 	}
 }
