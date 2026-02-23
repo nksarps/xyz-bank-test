@@ -45,7 +45,7 @@ public class TransactionSecurityTest extends SetUp {
         boolean resetButtonVisible = transactionsPage.isResetButtonVisible();
 
         assertFalse(resetButtonVisible,
-                "SECURITY VIOLATION: Reset button should NOT be available to customers. " +
+                "Reset button should NOT be available to customers. " +
                         "Customers must not be able to reset or alter their transaction history.");
     }
 }
