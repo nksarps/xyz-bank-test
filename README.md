@@ -1,7 +1,4 @@
 # Automated Tests for XYZ Bank
-
-## Project Overview
-
 This is an automated UI test suite for the XYZ Bank Angular Banking demo application.
 
 It validates key customer and bank manager flows using Selenium WebDriver, JUnit 5 tests, JSON-driven test data, and Allure reporting.
