@@ -35,7 +35,7 @@ Dependencies/tools needed before setup:
 ### Clone the Repository
 
 ```bash
-git clone <https://github.com/nksarps/xyz-bank-test>
+git clone https://github.com/nksarps/xyz-bank-test
 cd xyz-bank-test
 ```
 
