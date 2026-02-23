@@ -93,11 +93,6 @@ public class DepositTest extends SetUp {
         @MethodSource("com.automation.tests.customer.DepositTest#provideInvalidDeposits")
         @DisplayName("Should reject invalid amounts")
         void testInvalidDeposit(DepositData depositData) {
-            // Skip tests with empty fields - HTML5 validation prevents submission
-            if (depositData.getAmount().isEmpty()) {
-                return;
-            }
-
             // Get an existing customer to test with
             ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 
@@ -120,30 +115,13 @@ public class DepositTest extends SetUp {
             // Attempt invalid deposit
             depositPage.deposit(depositData.getAmount());
 
-            // Try to get the message if available (application may not provide feedback)
-            String message = "";
-            try {
-                message = depositPage.getSuccessMessage();
-            } catch (Exception e) {
-                // No message available - this is expected for some invalid inputs
-                message = "";
-            }
-
             // Get current balance to verify deposit was not accepted
             String newBalanceStr = customerDashboardPage.getBalance();
             int newBalance = Integer.parseInt(newBalanceStr);
-            
-            // If balance changed, the deposit was accepted (application bug/limitation)
-            if (newBalance != initialBalance) {
-                // Application accepted invalid data - document this but don't fail
-                System.out.println("INFO: Application accepted invalid deposit amount: '" + depositData.getAmount() 
-                    + "' (Balance changed from " + initialBalance + " to " + newBalance + ")");
-            } else {
-                // Balance didn't change - verify no success message
-                assertFalse(message.contains("Deposit Successful"), 
-                    String.format("System should NOT show success message for invalid deposit amount: '%s', Message: '%s'",
-                        depositData.getAmount(), message));
-            }
+
+            assertEquals(initialBalance, newBalance,
+                String.format("Invalid deposit should not change balance. Input: '%s', Expected: %d, Actual: %d",
+                    depositData.getAmount(), initialBalance, newBalance));
         }
     }
 
