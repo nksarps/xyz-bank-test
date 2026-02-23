@@ -16,10 +16,6 @@
   "invalidWithdrawals": [
     {
       "depositAmount": "1000",
-      "withdrawAmount": "2000"
-    },
-    {
-      "depositAmount": "1000",
       "withdrawAmount": "0"
     },
     {
@@ -29,6 +25,24 @@
     {
       "depositAmount": "1000",
       "withdrawAmount": "abc"
+    }
+  ],
+  "insufficientBalanceWithdrawals": [
+    {
+      "depositAmount": "1000",
+      "withdrawAmount": "1001"
+    },
+    {
+      "depositAmount": "5000",
+      "withdrawAmount": "10000"
+    },
+    {
+      "depositAmount": "657",
+      "withdrawAmount": "987"
+    },
+    {
+      "depositAmount": "456",
+      "withdrawAmount": "1000"
     }
   ]
 }
