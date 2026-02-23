@@ -13,13 +13,13 @@ import com.automation.helpers.PageHelper;
 public class WithdrawalPage {
     private final PageHelper helper;
 
-    @FindBy(xpath = "//form[@ng-submit='withdrawl()']//input[@ng-model='amount']")
+    @FindBy(xpath = "//input[@type='number' and @ng-model='amount' and @placeholder='amount']")
     private WebElement amountInput;
 
-    @FindBy(xpath = "//form[@ng-submit='withdrawl()']//button[@type='submit']")
+    @FindBy(xpath = "//button[@type='submit' and contains(@class,'btn-default') and normalize-space()='Withdraw']")
     private WebElement withdrawButton;
 
-    @FindBy(xpath = "//form[@ng-submit='withdrawl()']/following-sibling::span[contains(@class,'error')]")
+    @FindBy(xpath = "//span[contains(@class,'error') and @ng-show='message']")
     private WebElement resultMessage;
 
     /**
