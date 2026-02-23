@@ -1,0 +1,12 @@
+{
+  "customerWithoutAccount": {
+    "firstName": "TestUser",
+    "lastName": "NoAccount",
+    "postCode": "12345"
+  },
+  "customerWithAccount": {
+    "firstName": "TestUser",
+    "lastName": "WithAccount",
+    "postCode": "54321"
+  }
+}

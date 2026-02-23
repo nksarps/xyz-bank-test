@@ -1,0 +1,61 @@
+{
+  "validCustomers": [
+    {
+      "firstName": "Tyrone",
+      "lastName": "Woodley",
+      "postCode": "00233"
+    },
+    {
+      "firstName": "Raymond",
+      "lastName": "Cohen",
+      "postCode": "12345"
+    },
+    {
+      "firstName": "Kofi",
+      "lastName": "Boateng",
+      "postCode": "67890"
+    }
+  ],
+  "invalidCustomers": [
+    {
+      "firstName": "John123",
+      "lastName": "Doe",
+      "postCode": "12345"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith456",
+      "postCode": "67890"
+    },
+    {
+      "firstName": "John@",
+      "lastName": "Doe",
+      "postCode": "12345"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith!",
+      "postCode": "67890"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "postCode": "ABC123"
+    },
+    {
+      "firstName": "",
+      "lastName": "Doe",
+      "postCode": "12345"
+    },
+    {
+      "firstName": "John",
+      "lastName": "",
+      "postCode": "12345"
+    },
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "postCode": ""
+    }
+  ]
+}

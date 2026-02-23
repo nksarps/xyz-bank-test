@@ -1,0 +1,19 @@
+{
+  "existingCustomers": [
+    {
+      "name": "Hermoine Granger"
+    },
+    {
+      "name": "Kofi Boateng"
+    },
+    {
+      "name": "Tyrone Woodley"
+    },
+    {
+      "name": "Raymond Cohen"
+    },
+    {
+      "name": "Neville Longbottom"
+    }
+  ]
+}
