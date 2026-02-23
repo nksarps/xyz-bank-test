@@ -135,6 +135,21 @@ public class TestDataReader {
     }
 
     /**
+     * Reads insufficient balance withdrawal data from withdraw.json.
+     *
+     * @return list of insufficient balance withdrawal data
+     */
+    public static List<WithdrawData> getInsufficientBalanceWithdrawals() {
+        try (InputStream inputStream = TestDataReader.class.getClassLoader()
+                .getResourceAsStream("testdata/withdraw.json")) {
+            WithdrawTestData data = objectMapper.readValue(inputStream, WithdrawTestData.class);
+            return data.getInsufficientBalanceWithdrawals();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read insufficient balance withdrawals from JSON", e);
+        }
+    }
+
+    /**
      * Reads existing customer data from customers.json.
      *
      * @return list of existing customers
@@ -250,12 +265,19 @@ public class TestDataReader {
         @com.fasterxml.jackson.annotation.JsonProperty("invalidWithdrawals")
         private List<WithdrawData> invalidWithdrawals;
 
+        @com.fasterxml.jackson.annotation.JsonProperty("insufficientBalanceWithdrawals")
+        private List<WithdrawData> insufficientBalanceWithdrawals;
+
         public List<WithdrawData> getValidWithdrawals() {
             return validWithdrawals;
         }
 
         public List<WithdrawData> getInvalidWithdrawals() {
             return invalidWithdrawals;
+        }
+
+        public List<WithdrawData> getInsufficientBalanceWithdrawals() {
+            return insufficientBalanceWithdrawals;
         }
     }
 
