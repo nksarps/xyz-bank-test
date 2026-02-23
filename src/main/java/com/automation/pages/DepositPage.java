@@ -13,16 +13,13 @@ import com.automation.helpers.PageHelper;
 public class DepositPage {
     private final PageHelper helper;
 
-    //@FindBy(xpath = "//input[@ng-model='amount']")
-    @FindBy(className = "form-control")
+    @FindBy(xpath = "//input[@type='number' and @ng-model='amount' and @placeholder='amount']")
     private WebElement amountInput;
 
-    // @FindBy(className = "btn-default")
-    @FindBy(css = "button[type='submit']")
+    @FindBy(xpath = "//button[@type='submit' and contains(@class,'btn-default') and normalize-space()='Deposit']")
     private WebElement depositButton;
 
-    // @FindBy(xpath = "//span[@ng-show='message']/strong")
-    @FindBy(className = "error")
+    @FindBy(xpath = "//span[contains(@class,'error') and @ng-show='message' and normalize-space()='Deposit Successful']")
     private WebElement successMessage;
 
     /**
