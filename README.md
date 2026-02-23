@@ -1,6 +1,4 @@
-# Project Name
-
-Automated Tests for XYZ Bank
+# Automated Tests for XYZ Bank
 
 ## Project Overview
 
