@@ -4,11 +4,6 @@ package com.automation.utils;
  * Utility class for parsing alert messages from the application.
  */
 public class AlertMessageParser {
-
-    private AlertMessageParser() {
-        // Private constructor to prevent instantiation
-    }
-
     /**
      * Extracts account number from alert message.
      * Expected format: "Account created successfully with account Number :1025"

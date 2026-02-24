@@ -9,15 +9,8 @@ public class DepositData {
     @JsonProperty("amount")
     private String amount;
 
-    public DepositData() {
-    }
-
     public String getAmount() {
         return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
     }
 
     /**

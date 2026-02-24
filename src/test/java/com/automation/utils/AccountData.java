@@ -12,23 +12,13 @@ public class AccountData {
     @JsonProperty("currency")
     private String currency;
 
-    public AccountData() {
-    }
 
     public String getCustomerName() {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
     public String getCurrency() {
         return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
     }
 
     /**
