@@ -23,7 +23,7 @@ public class AddCustomerTest extends SetUp {
      * Positive test cases for adding valid customers.
      */
     @Nested
-    @DisplayName("Valid Customer Scenarios")
+    @DisplayName("Valid Add Customer Scenarios")
     class ValidCustomerTests {
 
         /**
@@ -44,15 +44,15 @@ public class AddCustomerTest extends SetUp {
             bankManagerLoginPage.openAddCustomer();
             assertTrue(addCustomerPage.isLoaded(), "Add Customer page should be loaded");
 
-            // Add customer
+            // Add customer and getting the alert message because the addCustomer method returns
+            // the message in the alert.
             String alertMessage = addCustomerPage.addCustomer(
                     customerData.getFirstName(),
                     customerData.getLastName(),
                     customerData.getPostCode());
 
-            // Checking to ensure alert message is returned and contains expected success
-            // text
-            assertNotNull(alertMessage, "Alert message should not be null");
+            // Checking to ensure alert message is returned and contains expected success text
+            assertNotNull(alertMessage, "Alert message should not be empty");
             assertTrue(alertMessage.contains("Customer added successfully"),
                     String.format("Expected success message but got: '%s'", alertMessage));
         }
@@ -62,7 +62,7 @@ public class AddCustomerTest extends SetUp {
      * Negative test cases for adding invalid customers.
      */
     @Nested
-    @DisplayName("Invalid Customer Scenarios")
+    @DisplayName("Invalid Add Customer Scenarios")
     class InvalidCustomerTests {
 
         /**
@@ -74,13 +74,6 @@ public class AddCustomerTest extends SetUp {
         @MethodSource("com.automation.tests.manager.AddCustomerTest#provideInvalidCustomers")
         @DisplayName("Should reject invalid data")
         void testAddInvalidCustomer(CustomerData customerData) {
-            // Skip tests with empty fields - HTML5 validation prevents submission
-            if (customerData.getFirstName().isEmpty() ||
-                    customerData.getLastName().isEmpty() ||
-                    customerData.getPostCode().isEmpty()) {
-                return;
-            }
-
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();
             assertTrue(bankManagerLoginPage.isLoaded(), "Bank Manager page should be loaded");
@@ -96,7 +89,7 @@ public class AddCustomerTest extends SetUp {
                     customerData.getPostCode());
 
             // Verify that invalid data is rejected
-            assertNotNull(alertMessage, "Alert should appear");
+            assertNotNull(alertMessage, "An alert should appear explaining why the customer addition failed.");
             assertFalse(alertMessage.contains("Customer added successfully"),
                     String.format(
                             "System should NOT accept invalid customer data. First Name: '%s', Last Name: '%s', Post Code: '%s', Alert: '%s'",

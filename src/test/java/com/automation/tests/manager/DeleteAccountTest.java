@@ -38,7 +38,7 @@ public class DeleteAccountTest extends SetUp {
         String uniqueSuffix = String.valueOf(System.currentTimeMillis());
         String firstName = testData.getFirstName();
         String lastName = testData.getLastName() + uniqueSuffix;
-        String postCode = testData.postCode();
+        String postCode = testData.getPostCode();
 
         String addCustomerAlert = addCustomerPage.addCustomer(firstName, lastName, postCode);
 
@@ -56,7 +56,7 @@ public class DeleteAccountTest extends SetUp {
         assertTrue(openAccountPage.isLoaded(), "Open Account page should be loaded");
 
         String customerFullName = firstName + " " + lastName;
-        String openAccountAlert = openAccountPage.openAccount(customerFullName, "Dollar");
+        String openAccountAlert = openAccountPage.openAccount(customerFullName, testData.getCurrency());
 
         // Verify account was created successfully
         assertNotNull(openAccountAlert, "Account creation alert should not be null");
