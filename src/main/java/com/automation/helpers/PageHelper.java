@@ -2,10 +2,8 @@ package com.automation.helpers;
 
 import java.time.Duration;
 
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -33,8 +31,8 @@ public class PageHelper {
      * @param locator element locator
      * @return visible element
      */
-    public WebElement find(WebElement element) {
-        return wait.until(ExpectedConditions.visibilityOf(element));
+    public WebElement find(WebElement locator) {
+        return wait.until(ExpectedConditions.visibilityOf(locator));
     }
 
     /**
@@ -43,16 +41,7 @@ public class PageHelper {
      * @param element page element
      */
     public void click(WebElement element) {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                wait.until(ExpectedConditions.elementToBeClickable(element)).click();
-                return;
-            } catch (StaleElementReferenceException ex) {
-                if (attempt == 1) {
-                    throw ex;
-                }
-            }
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
     /**
@@ -62,43 +51,9 @@ public class PageHelper {
      * @param value text to enter
      */
     public void type(WebElement element, String value) {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
-                try {
-                    target.clear();
-                } catch (Exception e) {
-                    // If clear fails, element might not support clearing (like search fields)
-                    // Continue to send keys anyway
-                }
-                target.sendKeys(value);
-                return;
-            } catch (StaleElementReferenceException ex) {
-                if (attempt == 1) {
-                    throw ex;
-                }
-            }
-        }
-    }
-
-    /**
-     * Types into a field without clearing existing content.
-     *
-     * @param element page element
-     * @param value text to enter
-     */
-    public void typeWithoutClear(WebElement element, String value) {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
-                target.sendKeys(value);
-                return;
-            } catch (StaleElementReferenceException ex) {
-                if (attempt == 1) {
-                    throw ex;
-                }
-            }
-        }
+        WebElement target = wait.until(ExpectedConditions.elementToBeClickable(element));
+        target.clear();
+        target.sendKeys(value);
     }
 
     /**
@@ -108,16 +63,7 @@ public class PageHelper {
      * @return element text
      */
     public String getText(WebElement element) {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                return find(element).getText();
-            } catch (StaleElementReferenceException ex) {
-                if (attempt == 1) {
-                    throw ex;
-                }
-            }
-        }
-        return "";
+        return find(element).getText();
     }
 
     /**
@@ -127,28 +73,7 @@ public class PageHelper {
      * @return true if visible, false otherwise
      */
     public boolean isVisible(WebElement element) {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                wait.until(ExpectedConditions.visibilityOf(element));
-                return true;
-            } catch (StaleElementReferenceException ex) {
-                if (attempt == 1) {
-                    return false;
-                }
-            } catch (Exception ex) {
-                return false;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Waits until a custom expected condition is satisfied.
-     *
-     * @param condition expected condition to wait for
-     */
-    public void waitUntil(ExpectedCondition<?> condition) {
-        wait.until(condition);
+        return wait.until(ExpectedConditions.visibilityOf(element)).isDisplayed();
     }
 
     /**

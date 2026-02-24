@@ -15,7 +15,8 @@ public class BankManagerLoginPage {
     public final WebDriver driver;
 
     // Using the xpath locator to find manager action buttons because they do not have unique IDs 
-    // and all buttons have the same class name "btn btn-lg tab"
+    // and all buttons have the same class name "btn btn-lg tab".
+    // So I am locating the buttons using the texts visible on them.
     @FindBy(xpath = "//button[contains(.,'Add Customer')]")
     private WebElement addCustomerButton;
 

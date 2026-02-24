@@ -21,10 +21,10 @@ public class TransactionsPage {
 
     // Using the xpath locator to find reset and back buttons because they do not have unique IDs 
     // and both buttons have the same class name "btn"
-    @FindBy(xpath = "//button[contains(.,'Reset')]")
+    @FindBy(xpath = "//button[@ng-click='reset()']")
     private WebElement resetButton;
 
-    @FindBy(xpath = "//button[contains(.,'Back')]")
+    @FindBy(xpath = "//button[@ng-click='back()']")
     private WebElement backButton;
 
     /**
@@ -65,19 +65,5 @@ public class TransactionsPage {
      */
     public boolean isResetButtonVisible() {
         return helper.isVisible(resetButton);
-    }
-
-    /**
-     * Resets the transactions table/filters.
-     */
-    public void reset() {
-        helper.click(resetButton);
-    }
-
-    /**
-     * Goes back to the customer dashboard.
-     */
-    public void back() {
-        helper.click(backButton);
     }
 }
