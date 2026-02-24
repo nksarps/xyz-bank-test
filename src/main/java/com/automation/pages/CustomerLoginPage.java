@@ -19,8 +19,7 @@ public class CustomerLoginPage {
     @FindBy(id = "userSelect")
     private WebElement customerDropdown;
 
-    // @FindBy(css = "button[type='submit']")
-    @FindBy(className = "btn-default")
+     @FindBy(css = "button[type='submit']")
     private WebElement loginButton;
 
     /**

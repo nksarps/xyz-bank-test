@@ -2,6 +2,7 @@
   "deleteAccountTest": {
     "firstName": "DeleteTest",
     "lastName": "Customer",
-    "postCode": "99999"
+    "postCode": "99999",
+    "currency": "Dollar"
   }
 }

@@ -11,9 +11,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class TestDataReader {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    private TestDataReader() {
-    }
-
     /**
      * Reads valid customer data from addCustomer.json.
      *
@@ -22,6 +19,7 @@ public class TestDataReader {
     public static List<CustomerData> getValidCustomers() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/addCustomer.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             CustomerTestData data = objectMapper.readValue(inputStream, CustomerTestData.class);
             return data.getValidCustomers();
         } catch (Exception e) {
@@ -37,6 +35,7 @@ public class TestDataReader {
     public static List<CustomerData> getInvalidCustomers() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/addCustomer.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             CustomerTestData data = objectMapper.readValue(inputStream, CustomerTestData.class);
             return data.getInvalidCustomers();
         } catch (Exception e) {
@@ -52,6 +51,7 @@ public class TestDataReader {
     public static List<AccountData> getValidAccounts() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/createAccount.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             AccountTestData data = objectMapper.readValue(inputStream, AccountTestData.class);
             return data.getValidAccounts();
         } catch (Exception e) {
@@ -67,6 +67,7 @@ public class TestDataReader {
     public static List<AccountData> getInvalidAccounts() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/createAccount.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             AccountTestData data = objectMapper.readValue(inputStream, AccountTestData.class);
             return data.getInvalidAccounts();
         } catch (Exception e) {
@@ -82,6 +83,7 @@ public class TestDataReader {
     public static List<DepositData> getValidDeposits() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/deposit.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             DepositTestData data = objectMapper.readValue(inputStream, DepositTestData.class);
             return data.getValidDeposits();
         } catch (Exception e) {
@@ -97,6 +99,7 @@ public class TestDataReader {
     public static List<DepositData> getInvalidDeposits() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/deposit.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             DepositTestData data = objectMapper.readValue(inputStream, DepositTestData.class);
             return data.getInvalidDeposits();
         } catch (Exception e) {
@@ -112,6 +115,7 @@ public class TestDataReader {
     public static List<WithdrawData> getValidWithdrawals() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/withdraw.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             WithdrawTestData data = objectMapper.readValue(inputStream, WithdrawTestData.class);
             return data.getValidWithdrawals();
         } catch (Exception e) {
@@ -127,6 +131,7 @@ public class TestDataReader {
     public static List<WithdrawData> getInvalidWithdrawals() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/withdraw.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             WithdrawTestData data = objectMapper.readValue(inputStream, WithdrawTestData.class);
             return data.getInvalidWithdrawals();
         } catch (Exception e) {
@@ -142,6 +147,7 @@ public class TestDataReader {
     public static List<WithdrawData> getInsufficientBalanceWithdrawals() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/withdraw.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             WithdrawTestData data = objectMapper.readValue(inputStream, WithdrawTestData.class);
             return data.getInsufficientBalanceWithdrawals();
         } catch (Exception e) {
@@ -157,6 +163,7 @@ public class TestDataReader {
     public static List<ExistingCustomer> getExistingCustomers() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/customers.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             ExistingCustomerData data = objectMapper.readValue(inputStream, ExistingCustomerData.class);
             return data.getExistingCustomers();
         } catch (Exception e) {
@@ -172,6 +179,7 @@ public class TestDataReader {
     public static CustomerAccessData getCustomerWithoutAccountData() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/customerAccess.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             CustomerAccessTestData data = objectMapper.readValue(inputStream, CustomerAccessTestData.class);
             return data.getCustomerWithoutAccount();
         } catch (Exception e) {
@@ -187,6 +195,7 @@ public class TestDataReader {
     public static CustomerAccessData getCustomerWithAccountData() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/customerAccess.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             CustomerAccessTestData data = objectMapper.readValue(inputStream, CustomerAccessTestData.class);
             return data.getCustomerWithAccount();
         } catch (Exception e) {
@@ -202,6 +211,7 @@ public class TestDataReader {
     public static DeleteAccountData getDeleteAccountData() {
         try (InputStream inputStream = TestDataReader.class.getClassLoader()
                 .getResourceAsStream("testdata/deleteAccount.json")) {
+            // Read the JSON file and convert it into a Java object that matches the file's structure
             DeleteAccountTestData data = objectMapper.readValue(inputStream, DeleteAccountTestData.class);
             return data.getDeleteAccountTest();
         } catch (Exception e) {

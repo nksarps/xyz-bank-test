@@ -2,11 +2,11 @@
   "validWithdrawals": [
     {
       "depositAmount": "1000",
-      "withdrawAmount": "200"
+      "withdrawAmount": "1"
     },
     {
       "depositAmount": "5000",
-      "withdrawAmount": "1000"
+      "withdrawAmount": "4999"
     },
     {
       "depositAmount": "1000",
@@ -35,10 +35,6 @@
     {
       "depositAmount": "5000",
       "withdrawAmount": "10000"
-    },
-    {
-      "depositAmount": "657",
-      "withdrawAmount": "987"
     },
     {
       "depositAmount": "456",

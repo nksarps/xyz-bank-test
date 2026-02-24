@@ -14,15 +14,10 @@ import com.automation.helpers.PageHelper;
  */
 public class CustomersPage {
     private final PageHelper helper;
-    
 
-    
-    // @FindBy(className = "form-control")
     @FindBy(xpath = "//input[@ng-model='searchCustomer']")
     private WebElement searchInput;
 
-    // Using the xpath locator to find customer rows and delete buttons because they do not have unique IDs or class names
-    // and all rows are in the same table body.
     @FindBy(xpath = "//table//tbody//tr")
     private List<WebElement> customerRows;
 
@@ -86,15 +81,6 @@ public class CustomersPage {
         if (index >= 0 && index < deleteButtons.size()) {
             helper.click(deleteButtons.get(index));
         }
-    }
-
-    /**
-     * Gets all customer rows.
-     *
-     * @return list of customer row elements
-     */
-    public List<WebElement> getCustomerRows() {
-        return customerRows;
     }
 
     /**

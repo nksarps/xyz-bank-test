@@ -9,9 +9,6 @@ public class ExistingCustomer {
     @JsonProperty("name")
     private String name;
 
-    public ExistingCustomer() {
-    }
-
     public String getName() {
         return name;
     }

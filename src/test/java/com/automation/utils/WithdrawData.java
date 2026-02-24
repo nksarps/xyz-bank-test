@@ -12,23 +12,12 @@ public class WithdrawData {
     @JsonProperty("withdrawAmount")
     private String withdrawAmount;
 
-    public WithdrawData() {
-    }
-
     public String getDepositAmount() {
         return depositAmount;
     }
 
-    public void setDepositAmount(String depositAmount) {
-        this.depositAmount = depositAmount;
-    }
-
     public String getWithdrawAmount() {
         return withdrawAmount;
-    }
-
-    public void setWithdrawAmount(String withdrawAmount) {
-        this.withdrawAmount = withdrawAmount;
     }
 
     /**

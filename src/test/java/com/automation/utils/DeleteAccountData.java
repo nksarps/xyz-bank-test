@@ -1,44 +1,37 @@
 package com.automation.utils;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * Data model for delete account test data.
  */
 public class DeleteAccountData {
+    @JsonProperty("firstName")
     private String firstName;
+
+    @JsonProperty("lastName")
     private String lastName;
+
+    @JsonProperty("postCode")
     private String postCode;
+
+    @JsonProperty("currency")
+    private String currency;
 
     public String getFirstName() {
         return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String postCode() {
+    public String getPostCode() {
         return postCode;
     }
 
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
-    }
-
-    /**
-     * Gets the full name by combining first and last names.
-     *
-     * @return full name
-     */
-    public String getFullName() {
-        return firstName + " " + lastName;
+    public String getCurrency() {
+        return currency;
     }
 
     /**

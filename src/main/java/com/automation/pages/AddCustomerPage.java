@@ -27,7 +27,8 @@ public class AddCustomerPage {
     @FindBy(xpath = "//input[@ng-model='postCd']")
     private WebElement postCodeInput;
 
-    // @FindBy(css = "button[type='submit']")
+    // Since this is the only button on the page, and it has a unique class name "btn-default",
+    // we can use that to locate the submit button
     @FindBy(className = "btn-default")
     private WebElement addCustomerSubmitButton;
 
