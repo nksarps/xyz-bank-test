@@ -1,10 +1,7 @@
 {
   "validDeposits": [
     {
-      "amount": "1000"
-    },
-    {
-      "amount": "500"
+      "amount": "1"
     },
     {
       "amount": "10000"

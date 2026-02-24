@@ -12,15 +12,5 @@
       "customerName": "Hermoine Granger",
       "currency": "Rupee"
     }
-  ],
-  "invalidAccounts": [
-    {
-      "customerName": "",
-      "currency": "Dollar"
-    },
-    {
-      "customerName": "Hermoine Granger",
-      "currency": ""
-    }
   ]
 }

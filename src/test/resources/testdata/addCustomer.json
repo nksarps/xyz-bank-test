@@ -6,11 +6,6 @@
       "postCode": "00233"
     },
     {
-      "firstName": "Raymond",
-      "lastName": "Cohen",
-      "postCode": "12345"
-    },
-    {
       "firstName": "Kofi",
       "lastName": "Boateng",
       "postCode": "67890"
@@ -41,21 +36,6 @@
       "firstName": "John",
       "lastName": "Doe",
       "postCode": "ABC123"
-    },
-    {
-      "firstName": "",
-      "lastName": "Doe",
-      "postCode": "12345"
-    },
-    {
-      "firstName": "John",
-      "lastName": "",
-      "postCode": "12345"
-    },
-    {
-      "firstName": "John",
-      "lastName": "Doe",
-      "postCode": ""
     }
   ]
 }
