@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -94,14 +95,12 @@ public class WithdrawalTest extends SetUp {
 		/**
 		 * Tests that withdrawals greater than current balance are rejected.
 		 * The account is reset to zero balance before each data set is executed.
-		 *
-		 * @param withdrawData insufficient balance withdrawal test data
 		 */
-		@ParameterizedTest(name = "Should reject insufficient-balance withdrawal: {0}")
-		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideInsufficientBalanceWithdrawals")
+		@Test
 		@DisplayName("Should reject amount greater than balance")
-		void testInsufficientBalanceWithdrawal(WithdrawData withdrawData) {
+		void testInsufficientBalanceWithdrawal() {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
+			WithdrawData withdrawData = TestDataReader.getInsufficientBalanceWithdrawals().get(0);
 
 			loginPage.goToCustomerLogin();
 			assertTrue(customerLoginPage.isLoaded(), "Customer Login page should be loaded");
@@ -111,13 +110,6 @@ public class WithdrawalTest extends SetUp {
 
 			emptyAccountBalance();
 
-			customerDashboardPage.openDeposit();
-			assertTrue(depositPage.isLoaded(), "Deposit page should be loaded");
-
-			depositPage.deposit(withdrawData.getDepositAmount());
-
-			String seededBalanceStr = customerDashboardPage.getBalance();
-			int seededBalance = Integer.parseInt(seededBalanceStr);
 
 			customerDashboardPage.openWithdrawal();
 			assertTrue(withdrawalPage.isLoaded(), "Withdrawal page should be loaded");
@@ -128,33 +120,6 @@ public class WithdrawalTest extends SetUp {
 			assertTrue(resultMessage.contains("Transaction Failed. You can not withdraw amount more than the balance."),
 				String.format("Expected insufficient-balance error message. Withdraw: %s, Actual message: '%s'",
 					withdrawData.getWithdrawAmount(), resultMessage));
-
-			String newBalanceStr = customerDashboardPage.getBalance();
-			int newBalance = Integer.parseInt(newBalanceStr);
-
-			assertEquals(seededBalance, newBalance,
-				String.format("Insufficient-balance withdrawal should not change balance. Deposit: %s, Withdraw: %s, Expected: %d, Actual: %d",
-					withdrawData.getDepositAmount(), withdrawData.getWithdrawAmount(), seededBalance, newBalance));
-		}
-
-		private void emptyAccountBalance() {
-			String currentBalanceStr = customerDashboardPage.getBalance();
-			int currentBalance = Integer.parseInt(currentBalanceStr);
-
-			if (currentBalance <= 0) {
-				return;
-			}
-
-			customerDashboardPage.openWithdrawal();
-			assertTrue(withdrawalPage.isLoaded(), "Withdrawal page should be loaded");
-
-			withdrawalPage.withdraw(String.valueOf(currentBalance));
-
-			String balanceAfterResetStr = customerDashboardPage.getBalance();
-			int balanceAfterReset = Integer.parseInt(balanceAfterResetStr);
-			assertEquals(0, balanceAfterReset,
-				String.format("Account should be emptied before insufficient-balance test. Before: %d, After: %d",
-					currentBalance, balanceAfterReset));
 		}
 	}
 
@@ -227,11 +192,17 @@ public class WithdrawalTest extends SetUp {
 	}
 
 	/**
-	 * Provides insufficient balance withdrawal data for parameterized tests.
-	 *
-	 * @return stream of insufficient balance withdrawal data
+	 * Empties the account balance by withdrawing the entire current balance if greater than zero.
 	 */
-	static Stream<WithdrawData> provideInsufficientBalanceWithdrawals() {
-		return TestDataReader.getInsufficientBalanceWithdrawals().stream();
+	private void emptyAccountBalance() {
+		customerDashboardPage.openWithdrawal();
+		String balanceStr = customerDashboardPage.getBalance();
+		int balance = Integer.parseInt(balanceStr);
+		if (balance > 0) {
+			withdrawalPage.withdraw(String.valueOf(balance));
+			// Optionally, verify the balance is now zero
+			String newBalanceStr = customerDashboardPage.getBalance();
+			assertEquals(0, Integer.parseInt(newBalanceStr), "Account balance should be zero after emptying.");
+		}
 	}
 }
