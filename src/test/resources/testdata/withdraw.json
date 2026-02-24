@@ -29,16 +29,7 @@
   ],
   "insufficientBalanceWithdrawals": [
     {
-      "depositAmount": "1000",
-      "withdrawAmount": "1001"
-    },
-    {
-      "depositAmount": "5000",
-      "withdrawAmount": "10000"
-    },
-    {
-      "depositAmount": "456",
-      "withdrawAmount": "1000"
+      "withdrawAmount": "1"
     }
   ]
 }
