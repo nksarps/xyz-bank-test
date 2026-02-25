@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.extension.ExtensionContext;
+import org.junit.jupiter.api.extension.TestExecutionExceptionHandler;
 import org.junit.jupiter.api.extension.TestWatcher;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,8 +20,12 @@ import com.automation.pages.customer.LoginPage;
 import com.automation.pages.manager.OpenAccountPage;
 import com.automation.pages.customer.TransactionsPage;
 import com.automation.pages.customer.WithdrawalPage;
+import com.automation.utils.ScreenshotUtil;
 
 import io.github.cdimascio.dotenv.Dotenv;
+import io.qameta.allure.Allure;
+
+import java.io.ByteArrayInputStream;
 
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -60,9 +65,68 @@ public class SetUp {
     private static final Logger LOGGER = Logger.getLogger(SetUp.class.getName());
 
     /**
-     * Custom JUnit 5 {@link TestWatcher} implementation to log test results.
+     * Custom JUnit 5 {@link TestWatcher} implementation to log test results and capture screenshots on failure.
+     * Implements {@link TestExecutionExceptionHandler} to capture screenshots when exceptions occur during test execution.
      */
-    static class JulTestWatcher implements TestWatcher {
+    static class JulTestWatcher implements TestWatcher, TestExecutionExceptionHandler {
+
+        /**
+         * Intercepts test execution exceptions to capture screenshots before the exception propagates.
+         * This runs DURING test execution, BEFORE @AfterEach, ensuring the WebDriver is still active.
+         *
+         * @param context the extension context
+         * @param throwable the exception thrown during test execution
+         */
+        @Override
+        public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
+            try {
+                Object testInstance = context.getRequiredTestInstance();
+                WebDriver driver = null;
+                
+                // For nested test classes, we need to get the outer instance (SetUp)
+                if (testInstance instanceof SetUp) {
+                    // Direct instance of SetUp
+                    SetUp setUp = (SetUp) testInstance;
+                    driver = setUp.driver;
+                } else {
+                    // Nested test class - get the outer instance
+                    try {
+                        // Get the outer test instance (the SetUp class)
+                        Class<?> testClass = testInstance.getClass();
+                        
+                        // Check if this is a nested class
+                        if (testClass.isMemberClass() && !java.lang.reflect.Modifier.isStatic(testClass.getModifiers())) {
+                            // Get the outer instance using reflection
+                            java.lang.reflect.Field outerField = testClass.getDeclaredField("this$0");
+                            outerField.setAccessible(true);
+                            Object outerInstance = outerField.get(testInstance);
+                            
+                            if (outerInstance instanceof SetUp) {
+                                SetUp setUp = (SetUp) outerInstance;
+                                driver = setUp.driver;
+                            }
+                        }
+                    } catch (Exception e) {
+                        LOGGER.log(Level.WARNING, "Could not access outer instance for nested test class", e);
+                    }
+                }
+                
+                if (driver != null) {
+                    byte[] screenshot = ScreenshotUtil.captureScreenshot(driver);
+                    
+                    if (screenshot.length > 0) {
+                        String screenshotName = ScreenshotUtil.generateScreenshotName(context.getDisplayName());
+                        Allure.addAttachment(screenshotName, "image/png", new ByteArrayInputStream(screenshot), ".png");
+                        LOGGER.info("Screenshot captured and attached for failed test: " + context.getDisplayName());
+                    }
+                }
+            } catch (Exception e) {
+                LOGGER.log(Level.SEVERE, "Failed to capture or attach screenshot for test: " + context.getDisplayName(), e);
+            }
+            
+            // Re-throw the original exception to maintain test failure
+            throw throwable;
+        }
 
         /**
          * Logs a message when a test is successful.
