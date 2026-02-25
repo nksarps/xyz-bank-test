@@ -66,4 +66,18 @@ public class TransactionsPage {
     public boolean isResetButtonVisible() {
         return helper.isVisible(resetButton);
     }
+
+    /**
+     * Clicks the Reset button to clear transaction history.
+     */
+    public void clickReset() {
+        helper.click(resetButton);
+    }
+
+    /**
+     * Clicks the Back button to return to the customer dashboard.
+     */
+    public void clickBack() {
+        helper.click(backButton);
+    }
 }

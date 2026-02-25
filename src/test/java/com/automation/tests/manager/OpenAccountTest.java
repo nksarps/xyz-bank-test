@@ -34,7 +34,7 @@ public class OpenAccountTest extends SetUp {
          */
         @ParameterizedTest(name = "Open valid account: {0}")
         @MethodSource("com.automation.tests.manager.OpenAccountTest#provideValidAccounts")
-        @DisplayName("Should successfully open account with valid data")
+        @DisplayName("Verify bank manager can open accounts for existing customers successfully")
         void testOpenValidAccount(AccountData accountData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();

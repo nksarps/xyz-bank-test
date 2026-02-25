@@ -35,7 +35,7 @@ public class WithdrawalTest extends SetUp {
 		 */
 		@ParameterizedTest(name = "Withdraw valid amount: {0}")
 		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideValidWithdrawals")
-		@DisplayName("Should successfully withdraw with valid amount")
+		@DisplayName("Verify successful withdrawal updates balance correctly")
 		void testValidWithdrawal(WithdrawData withdrawData) {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 
@@ -94,10 +94,9 @@ public class WithdrawalTest extends SetUp {
 
 		/**
 		 * Tests that withdrawals greater than current balance are rejected.
-		 * The account is reset to zero balance before each data set is executed.
 		 */
 		@Test
-		@DisplayName("Should reject amount greater than balance")
+		@DisplayName("Verify withdrawal with insufficient balance is rejected and shows appropriate error message")
 		void testInsufficientBalanceWithdrawal() {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 			WithdrawData withdrawData = TestDataReader.getInsufficientBalanceWithdrawals().get(0);
@@ -138,7 +137,7 @@ public class WithdrawalTest extends SetUp {
 		 */
 		@ParameterizedTest(name = "Should reject invalid withdrawal: {0}")
 		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideInvalidWithdrawals")
-		@DisplayName("Should reject invalid amounts")
+		@DisplayName("Verify invalid withdrawal amounts are rejected and balance remains unchanged")
 		void testInvalidWithdrawal(WithdrawData withdrawData) {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 

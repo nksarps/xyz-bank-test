@@ -21,7 +21,7 @@ public class DeleteAccountTest extends SetUp {
      * customer in system.
      */
     @Test
-    @DisplayName("Deleting customer record should remove account but keep customer in system")
+    @DisplayName("Verify deleting a customer record removes their account but keeps the customer in system")
     void testDeleteAccountKeepsCustomerInSystem() {
         // Step 1: Navigate to Bank Manager Login and add a customer
         loginPage.goToBankManagerLogin();

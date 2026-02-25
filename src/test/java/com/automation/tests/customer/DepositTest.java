@@ -34,7 +34,7 @@ public class DepositTest extends SetUp {
          */
         @ParameterizedTest(name = "Deposit valid amount: {0}")
         @MethodSource("com.automation.tests.customer.DepositTest#provideValidDeposits")
-        @DisplayName("Should successfully deposit with valid amount")
+        @DisplayName("Verify successful deposit updates balance correctly")
         void testValidDeposit(DepositData depositData) {
             // Get an existing customer to test with
             ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
@@ -85,13 +85,13 @@ public class DepositTest extends SetUp {
 
         /**
          * Tests that invalid deposits should be rejected by the system.
-         * Invalid data includes: zero, negative amounts, non-numeric values, empty input.
+         * Invalid data includes: zero, negative amounts, non-numeric values.
          *
          * @param depositData invalid deposit test data
          */
         @ParameterizedTest(name = "Should reject invalid deposit: {0}")
         @MethodSource("com.automation.tests.customer.DepositTest#provideInvalidDeposits")
-        @DisplayName("Should reject invalid amounts")
+        @DisplayName("Verify invalid deposit amounts are rejected and balance remains unchanged")
         void testInvalidDeposit(DepositData depositData) {
             // Get an existing customer to test with
             ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);

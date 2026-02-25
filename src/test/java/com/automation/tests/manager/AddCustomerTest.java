@@ -34,7 +34,7 @@ public class AddCustomerTest extends SetUp {
          */
         @ParameterizedTest(name = "Add valid customer: {0}")
         @MethodSource("com.automation.tests.manager.AddCustomerTest#provideValidCustomers")
-        @DisplayName("Should successfully add customer with valid data")
+        @DisplayName("Verify bank manager can add valid customers successfully")
         void testAddValidCustomer(CustomerData customerData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();
@@ -72,7 +72,7 @@ public class AddCustomerTest extends SetUp {
          */
         @ParameterizedTest(name = "Should reject invalid customer: {0}")
         @MethodSource("com.automation.tests.manager.AddCustomerTest#provideInvalidCustomers")
-        @DisplayName("Should reject invalid data")
+        @DisplayName("Verify system rejects invalid customer data")
         void testAddInvalidCustomer(CustomerData customerData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();

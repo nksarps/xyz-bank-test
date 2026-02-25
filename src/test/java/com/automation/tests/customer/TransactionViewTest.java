@@ -10,21 +10,16 @@ import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 
 /**
- * Tests for Transaction Viewing functionality based on acceptance criteria.
- * 
- * AC1: Viewing Transactions
- * - Customers should be able to view a list of their recent transactions.
+ * Tests to see that customers can view a list of their transactions.
  */
 @DisplayName("Transaction View Tests (AC1)")
 public class TransactionViewTest extends SetUp {
 
     /**
-     * AC1: Customers should be able to view a list of their recent transactions.
-     * 
-     * Test 1: Verify customers can navigate to and view the Transactions page.
+     * Customers should be able to view a list of their recent transactions.
      */
     @Test
-    @DisplayName("Customer can access Transactions page")
+    @DisplayName("Verify customers can view a list of their transactions")
     void testCustomerCanAccessTransactionsPage() {
         // Get an existing customer to test with
         ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
