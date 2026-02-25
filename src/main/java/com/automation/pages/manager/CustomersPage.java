@@ -14,6 +14,7 @@ import com.automation.helpers.PageHelper;
  */
 public class CustomersPage {
     private final PageHelper helper;
+    public final WebDriver driver;
 
     @FindBy(xpath = "//input[@ng-model='searchCustomer']")
     private WebElement searchInput;
@@ -34,6 +35,7 @@ public class CustomersPage {
      * @param driver active WebDriver instance
      */
     public CustomersPage(WebDriver driver) {
+        this.driver = driver;
         this.helper = new PageHelper(driver);
 
         PageFactory.initElements(driver, this);

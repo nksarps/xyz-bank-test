@@ -15,6 +15,7 @@ import com.automation.helpers.PageHelper;
  */
 public class TransactionsPage {
     private final PageHelper helper;
+    public final WebDriver driver;
 
     @FindBy(xpath = "//table[@class='table table-bordered table-striped']//tbody/tr")
     private List<WebElement> transactionRows;
@@ -33,6 +34,7 @@ public class TransactionsPage {
      * @param driver active WebDriver instance
      */
     public TransactionsPage(WebDriver driver) {
+        this.driver = driver;
         this.helper = new PageHelper(driver);
 
         PageFactory.initElements(driver, this);

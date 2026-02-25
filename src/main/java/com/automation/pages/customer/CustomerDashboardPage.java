@@ -12,6 +12,7 @@ import com.automation.helpers.PageHelper;
  */
 public class CustomerDashboardPage {
     private final PageHelper helper;
+    public final WebDriver driver;
 
     // Using xpath locators to find elements because they do not have unique IDs or class names.
     @FindBy(xpath = "//strong[contains(.,'Welcome')]")
@@ -41,6 +42,7 @@ public class CustomerDashboardPage {
      * @param driver active WebDriver instance
      */
     public CustomerDashboardPage(WebDriver driver) {
+        this.driver = driver;
         this.helper = new PageHelper(driver);
         
         PageFactory.initElements(driver, this);

@@ -15,6 +15,7 @@ import com.automation.helpers.PageHelper;
  */
 public class CustomerLoginPage {
     private final PageHelper helper;
+    public final WebDriver driver;
 
     @FindBy(id = "userSelect")
     private WebElement customerDropdown;
@@ -28,6 +29,7 @@ public class CustomerLoginPage {
      * @param driver active WebDriver instance
      */
     public CustomerLoginPage(WebDriver driver) {
+        this.driver = driver;
         this.helper = new PageHelper(driver);
         
         PageFactory.initElements(driver, this);

@@ -12,6 +12,7 @@ import com.automation.helpers.PageHelper;
  */
 public class WithdrawalPage {
     private final PageHelper helper;
+    public final WebDriver driver;
 
     @FindBy(xpath = "//input[@type='number' and @ng-model='amount' and @placeholder='amount']")
     private WebElement amountInput;
@@ -28,12 +29,14 @@ public class WithdrawalPage {
      * @param driver active WebDriver instance
      */
     public WithdrawalPage(WebDriver driver) {
+        this.driver = driver;
         this.helper = new PageHelper(driver);
+
         PageFactory.initElements(driver, this);
     }
 
     /**
-     * Verifies that the withdrawl page is displayed.
+     * Verifies that the withdrawal page is displayed.
      *
      * @return true when the amount input is visible
      */
