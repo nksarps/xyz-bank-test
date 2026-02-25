@@ -1,4 +1,4 @@
-package com.automation.pages;
+package com.automation.pages.manager;
 
 import java.util.List;
 

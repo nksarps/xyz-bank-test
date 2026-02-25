@@ -204,6 +204,20 @@ public class TestDataReader {
     }
 
     /**
+     * Reads transaction security test data from transactionSecurityTestData.json.
+     *
+     * @return transaction security test data
+     */
+    public static TransactionSecurityData getTransactionSecurityData() {
+        try (InputStream inputStream = TestDataReader.class.getClassLoader()
+                .getResourceAsStream("testdata/transactionSecurityTestData.json")) {
+            return objectMapper.readValue(inputStream, TransactionSecurityData.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to read transaction security data from JSON", e);
+        }
+    }
+
+    /**
      * Reads delete account test data from deleteAccount.json.
      *
      * @return delete account test data
@@ -325,3 +339,4 @@ public class TestDataReader {
         }
     }
 }
+

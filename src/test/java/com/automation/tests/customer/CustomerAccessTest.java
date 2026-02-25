@@ -26,7 +26,7 @@ public class CustomerAccessTest extends SetUp {
      * 4. Customer should see "Please open an account with us." message
      */
     @Test
-    @DisplayName("Customer without account should see 'Please open an account' message")
+    @DisplayName("Verify customers without an account sees a message to open an account when they login")
     void testCustomerWithoutAccountSeesMessage() {
         // Step 1: Navigate to Bank Manager Login and add a customer
         loginPage.goToBankManagerLogin();

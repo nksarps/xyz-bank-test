@@ -9,16 +9,16 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import com.automation.pages.AddCustomerPage;
-import com.automation.pages.BankManagerLoginPage;
-import com.automation.pages.CustomerDashboardPage;
-import com.automation.pages.CustomerLoginPage;
-import com.automation.pages.CustomersPage;
-import com.automation.pages.DepositPage;
-import com.automation.pages.LoginPage;
-import com.automation.pages.OpenAccountPage;
-import com.automation.pages.TransactionsPage;
-import com.automation.pages.WithdrawalPage;
+import com.automation.pages.manager.AddCustomerPage;
+import com.automation.pages.home.BankManagerLoginPage;
+import com.automation.pages.customer.CustomerDashboardPage;
+import com.automation.pages.home.CustomerLoginPage;
+import com.automation.pages.manager.CustomersPage;
+import com.automation.pages.customer.DepositPage;
+import com.automation.pages.customer.LoginPage;
+import com.automation.pages.manager.OpenAccountPage;
+import com.automation.pages.customer.TransactionsPage;
+import com.automation.pages.customer.WithdrawalPage;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
