@@ -10,9 +10,14 @@ import com.automation.utils.AlertMessageParser;
 import com.automation.utils.CustomerAccessData;
 import com.automation.utils.TestDataReader;
 
+import io.qameta.allure.*;
+
 /**
  * Tests for Customer Access Control functionality.
  */
+@Epic("Bank Account Management")
+@Feature("Customer Access Control")
+@Story("US-1: Customers cannot access accounts until created by manager")
 @DisplayName("Customer Access Control Tests")
 public class CustomerAccessTest extends SetUp {
 
@@ -27,6 +32,8 @@ public class CustomerAccessTest extends SetUp {
      */
     @Test
     @DisplayName("Verify customers without an account sees a message to open an account when they login")
+    @Description("Customers should not be able to access their accounts until an account has been created by a bank manager")
+    @Severity(SeverityLevel.CRITICAL)
     void testCustomerWithoutAccountSeesMessage() {
         // Step 1: Navigate to Bank Manager Login and add a customer
         loginPage.goToBankManagerLogin();

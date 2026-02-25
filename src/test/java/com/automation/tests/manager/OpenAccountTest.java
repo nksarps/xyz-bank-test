@@ -14,9 +14,14 @@ import com.automation.utils.AccountData;
 import com.automation.utils.AlertMessageParser;
 import com.automation.utils.TestDataReader;
 
+import io.qameta.allure.*;
+
 /**
  * Parameterized tests for Open Account functionality.
  */
+@Epic("Bank Account Management")
+@Feature("Account Management")
+@Story("US-1: Bank Manager can create accounts")
 @DisplayName("Open Account Tests")
 public class OpenAccountTest extends SetUp {
 
@@ -25,6 +30,7 @@ public class OpenAccountTest extends SetUp {
      */
     @Nested
     @DisplayName("Valid Account Scenarios")
+    @Severity(SeverityLevel.CRITICAL)
     class ValidAccountTests {
 
         /**
@@ -35,6 +41,7 @@ public class OpenAccountTest extends SetUp {
         @ParameterizedTest(name = "Open valid account: {0}")
         @MethodSource("com.automation.tests.manager.OpenAccountTest#provideValidAccounts")
         @DisplayName("Verify bank manager can open accounts for existing customers successfully")
+        @Description("Bank manager should be able to create accounts for customers who have been added to the system")
         void testOpenValidAccount(AccountData accountData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();

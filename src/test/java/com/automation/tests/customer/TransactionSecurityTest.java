@@ -11,9 +11,14 @@ import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 import com.automation.utils.TransactionSecurityData;
 
+import io.qameta.allure.*;
+
 /**
  * Tests for Transaction Security functionality.
  */
+@Epic("Customer Banking Operations")
+@Feature("Transaction Security")
+@Story("US-2: Customers cannot reset or alter transaction history")
 @DisplayName("Transaction Security Tests")
 public class TransactionSecurityTest extends SetUp {
 
@@ -22,6 +27,8 @@ public class TransactionSecurityTest extends SetUp {
      */
     @Test
     @DisplayName("Verify customers cannot reset or alter their transactions")
+    @Description("Customers should not be able to reset or alter their transaction history")
+    @Severity(SeverityLevel.CRITICAL)
     void testResetButtonShouldNotAlterAccountBalance() {
         // Load test data
         ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
