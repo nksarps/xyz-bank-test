@@ -1,4 +1,4 @@
-package com.automation.pages;
+package com.automation.pages.manager;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;

@@ -1,4 +1,4 @@
-package com.automation.pages;
+package com.automation.pages.customer;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
