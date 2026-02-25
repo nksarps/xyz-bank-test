@@ -14,9 +14,14 @@ import com.automation.utils.DepositData;
 import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 
+import io.qameta.allure.*;
+
 /**
  * Parameterized tests for Deposit functionality.
  */
+@Epic("Customer Banking Operations")
+@Feature("Transaction Management")
+@Story("US-2: Customer can deposit funds")
 @DisplayName("Deposit Tests")
 public class DepositTest extends SetUp {
 
@@ -25,6 +30,7 @@ public class DepositTest extends SetUp {
      */
     @Nested
     @DisplayName("Valid Deposit Scenarios")
+    @Severity(SeverityLevel.CRITICAL)
     class ValidDepositTests {
 
         /**
@@ -35,6 +41,7 @@ public class DepositTest extends SetUp {
         @ParameterizedTest(name = "Deposit valid amount: {0}")
         @MethodSource("com.automation.tests.customer.DepositTest#provideValidDeposits")
         @DisplayName("Verify successful deposit updates balance correctly")
+        @Description("System should allow customers to deposit positive amounts and update account balance")
         void testValidDeposit(DepositData depositData) {
             // Get an existing customer to test with
             ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
@@ -81,6 +88,7 @@ public class DepositTest extends SetUp {
      */
     @Nested
     @DisplayName("Invalid Deposit Scenarios")
+    @Severity(SeverityLevel.NORMAL)
     class InvalidDepositTests {
 
         /**
@@ -92,6 +100,7 @@ public class DepositTest extends SetUp {
         @ParameterizedTest(name = "Should reject invalid deposit: {0}")
         @MethodSource("com.automation.tests.customer.DepositTest#provideInvalidDeposits")
         @DisplayName("Verify invalid deposit amounts are rejected and balance remains unchanged")
+        @Description("System should validate deposit amounts and reject zero, negative, or non-numeric values")
         void testInvalidDeposit(DepositData depositData) {
             // Get an existing customer to test with
             ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);

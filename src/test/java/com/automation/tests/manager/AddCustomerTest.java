@@ -13,9 +13,14 @@ import com.automation.base.SetUp;
 import com.automation.utils.CustomerData;
 import com.automation.utils.TestDataReader;
 
+import io.qameta.allure.*;
+
 /**
  * Parameterized tests for Add Customer functionality.
  */
+@Epic("Bank Account Management")
+@Feature("Customer Management")
+@Story("US-1: Bank Manager can add customers")
 @DisplayName("Add Customer Tests")
 public class AddCustomerTest extends SetUp {
 
@@ -24,6 +29,7 @@ public class AddCustomerTest extends SetUp {
      */
     @Nested
     @DisplayName("Valid Add Customer Scenarios")
+    @Severity(SeverityLevel.CRITICAL)
     class ValidCustomerTests {
 
         /**
@@ -35,6 +41,7 @@ public class AddCustomerTest extends SetUp {
         @ParameterizedTest(name = "Add valid customer: {0}")
         @MethodSource("com.automation.tests.manager.AddCustomerTest#provideValidCustomers")
         @DisplayName("Verify bank manager can add valid customers successfully")
+        @Description("Bank manager should be able to add customers with alphabetic names and numeric postal codes")
         void testAddValidCustomer(CustomerData customerData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();
@@ -63,6 +70,7 @@ public class AddCustomerTest extends SetUp {
      */
     @Nested
     @DisplayName("Invalid Add Customer Scenarios")
+    @Severity(SeverityLevel.NORMAL)
     class InvalidCustomerTests {
 
         /**
@@ -73,6 +81,7 @@ public class AddCustomerTest extends SetUp {
         @ParameterizedTest(name = "Should reject invalid customer: {0}")
         @MethodSource("com.automation.tests.manager.AddCustomerTest#provideInvalidCustomers")
         @DisplayName("Verify system rejects invalid customer data")
+        @Description("System should reject customers with non-alphabetic names or non-numeric postal codes")
         void testAddInvalidCustomer(CustomerData customerData) {
             // Navigate to Bank Manager Login
             loginPage.goToBankManagerLogin();

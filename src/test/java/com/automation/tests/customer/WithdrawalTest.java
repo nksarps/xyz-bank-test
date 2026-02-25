@@ -15,9 +15,14 @@ import com.automation.utils.ExistingCustomer;
 import com.automation.utils.TestDataReader;
 import com.automation.utils.WithdrawData;
 
+import io.qameta.allure.*;
+
 /**
  * Parameterized tests for Withdrawal functionality.
  */
+@Epic("Customer Banking Operations")
+@Feature("Transaction Management")
+@Story("US-2: Customer can withdraw money")
 @DisplayName("Withdrawal Tests")
 public class WithdrawalTest extends SetUp {
 
@@ -26,6 +31,7 @@ public class WithdrawalTest extends SetUp {
 	 */
 	@Nested
 	@DisplayName("Valid Withdrawal Scenarios")
+	@Severity(SeverityLevel.CRITICAL)
 	class ValidWithdrawalTests {
 
 		/**
@@ -36,6 +42,7 @@ public class WithdrawalTest extends SetUp {
 		@ParameterizedTest(name = "Withdraw valid amount: {0}")
 		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideValidWithdrawals")
 		@DisplayName("Verify successful withdrawal updates balance correctly")
+		@Description("System should allow customers to withdraw money with positive amounts and sufficient balance")
 		void testValidWithdrawal(WithdrawData withdrawData) {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 
@@ -90,6 +97,7 @@ public class WithdrawalTest extends SetUp {
 	 */
 	@Nested
 	@DisplayName("Insufficient Balance Withdrawal Scenarios")
+	@Severity(SeverityLevel.CRITICAL)
 	class InsufficientBalanceWithdrawalTests {
 
 		/**
@@ -97,6 +105,7 @@ public class WithdrawalTest extends SetUp {
 		 */
 		@Test
 		@DisplayName("Verify withdrawal with insufficient balance is rejected and shows appropriate error message")
+		@Description("System should validate withdrawal amount against available balance")
 		void testInsufficientBalanceWithdrawal() {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 			WithdrawData withdrawData = TestDataReader.getInsufficientBalanceWithdrawals().get(0);
@@ -127,6 +136,7 @@ public class WithdrawalTest extends SetUp {
 	 */
 	@Nested
 	@DisplayName("Invalid Withdrawal Scenarios")
+	@Severity(SeverityLevel.NORMAL)
 	class InvalidWithdrawalTests {
 
 		/**
@@ -138,6 +148,7 @@ public class WithdrawalTest extends SetUp {
 		@ParameterizedTest(name = "Should reject invalid withdrawal: {0}")
 		@MethodSource("com.automation.tests.customer.WithdrawalTest#provideInvalidWithdrawals")
 		@DisplayName("Verify invalid withdrawal amounts are rejected and balance remains unchanged")
+		@Description("System should validate withdrawal amounts and reject zero, negative, or non-numeric values")
 		void testInvalidWithdrawal(WithdrawData withdrawData) {
 			ExistingCustomer customer = TestDataReader.getExistingCustomers().get(0);
 

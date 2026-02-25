@@ -10,9 +10,14 @@ import com.automation.utils.AlertMessageParser;
 import com.automation.utils.DeleteAccountData;
 import com.automation.utils.TestDataReader;
 
+import io.qameta.allure.*;
+
 /**
  * Tests for Delete Account functionality.
  */
+@Epic("Bank Account Management")
+@Feature("Account Management")
+@Story("US-1: Bank Manager can delete accounts")
 @DisplayName("Delete Account Tests")
 public class DeleteAccountTest extends SetUp {
 
@@ -22,6 +27,8 @@ public class DeleteAccountTest extends SetUp {
      */
     @Test
     @DisplayName("Verify deleting a customer record removes their account but keeps the customer in system")
+    @Description("When an account is deleted, the associated customer should no longer be able to access the account")
+    @Severity(SeverityLevel.CRITICAL)
     void testDeleteAccountKeepsCustomerInSystem() {
         // Step 1: Navigate to Bank Manager Login and add a customer
         loginPage.goToBankManagerLogin();
