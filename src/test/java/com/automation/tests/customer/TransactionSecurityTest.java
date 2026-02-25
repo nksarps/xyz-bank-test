@@ -14,7 +14,7 @@ import com.automation.utils.TransactionSecurityData;
 /**
  * Tests for Transaction Security functionality.
  */
-@DisplayName("Transaction Security Tests (AC4)")
+@DisplayName("Transaction Security Tests")
 public class TransactionSecurityTest extends SetUp {
 
     /**

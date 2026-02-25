@@ -12,7 +12,7 @@ import com.automation.utils.TestDataReader;
 /**
  * Tests to see that customers can view a list of their transactions.
  */
-@DisplayName("Transaction View Tests (AC1)")
+@DisplayName("Transaction View Tests")
 public class TransactionViewTest extends SetUp {
 
     /**
