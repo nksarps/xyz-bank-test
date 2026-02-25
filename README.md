@@ -75,16 +75,19 @@ xyz-bank-test/
 │   │       ├── helpers/
 │   │       │   └── PageHelper.java
 │   │       └── pages/
-│   │           ├── AddCustomerPage.java
-│   │           ├── BankManagerLoginPage.java
-│   │           ├── CustomerDashboardPage.java
-│   │           ├── CustomerLoginPage.java
-│   │           ├── CustomersPage.java
-│   │           ├── DepositPage.java
-│   │           ├── LoginPage.java
-│   │           ├── OpenAccountPage.java
-│   │           ├── TransactionsPage.java
-│   │           └── WithdrawalPage.java
+│   │           ├── customer/
+│   │           │   ├── CustomerDashboardPage.java
+│   │           │   ├── DepositPage.java
+│   │           │   ├── LoginPage.java
+│   │           │   ├── TransactionsPage.java
+│   │           │   └── WithdrawalPage.java
+│   │           ├── home/
+│   │           │   ├── BankManagerLoginPage.java
+│   │           │   └── CustomerLoginPage.java
+│   │           └── manager/
+│   │               ├── AddCustomerPage.java
+│   │               ├── CustomersPage.java
+│   │               └── OpenAccountPage.java
 │   └── test/
 │       ├── java/com/automation/
 │       │   ├── base/
@@ -128,6 +131,9 @@ xyz-bank-test/
 
 Major directories/files:
 - `src/main/java/com/automation/pages`: Page Object Model classes for app screens.
+- `src/main/java/com/automation/pages/customer`: Page Object Model classes for customer-related screens (e.g., dashboard, transactions).
+- `src/main/java/com/automation/pages/home`: Page Object Model classes for home-related screens (e.g., login pages).
+- `src/main/java/com/automation/pages/manager`: Page Object Model classes for manager-related screens (e.g., add customer, open account).
 - `src/main/java/com/automation/helpers/PageHelper.java`: common Selenium wait/type/click helpers.
 - `src/test/java/com/automation/base/SetUp.java`: WebDriver lifecycle and shared page initialization.
 - `src/test/java/com/automation/tests`: customer and manager test suites.
