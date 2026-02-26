@@ -81,43 +81,19 @@ public class SetUp {
         public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
             try {
                 Object testInstance = context.getRequiredTestInstance();
-                WebDriver driver = null;
                 
-                // For nested test classes, we need to get the outer instance (SetUp)
                 if (testInstance instanceof SetUp) {
-                    // Direct instance of SetUp
                     SetUp setUp = (SetUp) testInstance;
-                    driver = setUp.driver;
-                } else {
-                    // Nested test class - get the outer instance
-                    try {
-                        // Get the outer test instance (the SetUp class)
-                        Class<?> testClass = testInstance.getClass();
-                        
-                        // Check if this is a nested class
-                        if (testClass.isMemberClass() && !java.lang.reflect.Modifier.isStatic(testClass.getModifiers())) {
-                            // Get the outer instance using reflection
-                            java.lang.reflect.Field outerField = testClass.getDeclaredField("this$0");
-                            outerField.setAccessible(true);
-                            Object outerInstance = outerField.get(testInstance);
-                            
-                            if (outerInstance instanceof SetUp) {
-                                SetUp setUp = (SetUp) outerInstance;
-                                driver = setUp.driver;
-                            }
-                        }
-                    } catch (Exception e) {
-                        LOGGER.log(Level.WARNING, "Could not access outer instance for nested test class", e);
-                    }
-                }
-                
-                if (driver != null) {
-                    byte[] screenshot = ScreenshotUtil.captureScreenshot(driver);
+                    WebDriver driver = setUp.driver;
                     
-                    if (screenshot.length > 0) {
-                        String screenshotName = ScreenshotUtil.generateScreenshotName(context.getDisplayName());
-                        Allure.addAttachment(screenshotName, "image/png", new ByteArrayInputStream(screenshot), ".png");
-                        LOGGER.info("Screenshot captured and attached for failed test: " + context.getDisplayName());
+                    if (driver != null) {
+                        byte[] screenshot = ScreenshotUtil.captureScreenshot(driver);
+                        
+                        if (screenshot.length > 0) {
+                            String screenshotName = ScreenshotUtil.generateScreenshotName(context.getDisplayName());
+                            Allure.addAttachment(screenshotName, "image/png", new ByteArrayInputStream(screenshot), ".png");
+                            LOGGER.info("Screenshot captured and attached for failed test: " + context.getDisplayName());
+                        }
                     }
                 }
             } catch (Exception e) {

@@ -14,8 +14,11 @@ import java.util.logging.Logger;
  * Provides thread-safe screenshot capture with error handling for Allure reporting.
  */
 public class ScreenshotUtil {
-    
+
+    // Logger instance for logging messages, warnings, and errors specific to this class
     private static final Logger LOGGER = Logger.getLogger(ScreenshotUtil.class.getName());
+
+    // Formatter for generating timestamps in the format yyyyMMdd_HHmmss_SSS
     private static final DateTimeFormatter TIMESTAMP_FORMAT = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss_SSS");
     
     /**
