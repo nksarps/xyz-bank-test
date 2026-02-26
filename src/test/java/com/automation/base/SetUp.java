@@ -81,14 +81,17 @@ public class SetUp {
         public void handleTestExecutionException(ExtensionContext context, Throwable throwable) throws Throwable {
             try {
                 Object testInstance = context.getRequiredTestInstance();
-                
+
+                // Check if the test instance is an instance of SetUp, so we can access the WebDriver
                 if (testInstance instanceof SetUp) {
+                    // Cast the testInstance to the SetUp class so we can access its protected `driver` field.
                     SetUp setUp = (SetUp) testInstance;
                     WebDriver driver = setUp.driver;
                     
                     if (driver != null) {
                         byte[] screenshot = ScreenshotUtil.captureScreenshot(driver);
-                        
+
+                        // Checking if the screenshot is not empty
                         if (screenshot.length > 0) {
                             String screenshotName = ScreenshotUtil.generateScreenshotName(context.getDisplayName());
                             Allure.addAttachment(screenshotName, "image/png", new ByteArrayInputStream(screenshot), ".png");
@@ -100,7 +103,7 @@ public class SetUp {
                 LOGGER.log(Level.SEVERE, "Failed to capture or attach screenshot for test: " + context.getDisplayName(), e);
             }
             
-            // Re-throw the original exception to maintain test failure
+            // Re-throw the original exception so the exception handler does not swallow the extension to make sure the test still fails.
             throw throwable;
         }
 
