@@ -2,7 +2,7 @@ package com.automation.tests.manager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -84,9 +84,9 @@ public class OpenAccountTest extends SetUp {
     /**
      * Provides valid account data for parameterized tests.
      *
-     * @return stream of valid account data
+     * @return list of valid account data
      */
-    static Stream<AccountData> provideValidAccounts() {
-        return TestDataReader.getValidAccounts().stream();
+    static List<AccountData> provideValidAccounts() {
+        return TestDataReader.getValidAccounts();
     }
 }

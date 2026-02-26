@@ -2,7 +2,7 @@ package com.automation.tests.customer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -137,18 +137,18 @@ public class DepositTest extends SetUp {
     /**
      * Provides valid deposit data for parameterized tests.
      *
-     * @return stream of valid deposit data
+     * @return list of valid deposit data
      */
-    static Stream<DepositData> provideValidDeposits() {
-        return TestDataReader.getValidDeposits().stream();
+    static List<DepositData> provideValidDeposits() {
+        return TestDataReader.getValidDeposits();
     }
 
     /**
      * Provides invalid deposit data for parameterized tests.
      *
-     * @return stream of invalid deposit data
+     * @return list of invalid deposit data
      */
-    static Stream<DepositData> provideInvalidDeposits() {
-        return TestDataReader.getInvalidDeposits().stream();
+    static List<DepositData> provideInvalidDeposits() {
+        return TestDataReader.getInvalidDeposits();
     }
 }
