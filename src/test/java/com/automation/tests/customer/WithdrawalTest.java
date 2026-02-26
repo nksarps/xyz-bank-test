@@ -2,7 +2,7 @@ package com.automation.tests.customer;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -186,19 +186,19 @@ public class WithdrawalTest extends SetUp {
 	/**
 	 * Provides valid withdrawal data for parameterized tests.
 	 *
-	 * @return stream of valid withdrawal data
+	 * @return list of valid withdrawal data
 	 */
-	static Stream<WithdrawData> provideValidWithdrawals() {
-		return TestDataReader.getValidWithdrawals().stream();
+	static List<WithdrawData> provideValidWithdrawals() {
+		return TestDataReader.getValidWithdrawals();
 	}
 
 	/**
 	 * Provides invalid withdrawal data for parameterized tests.
 	 *
-	 * @return stream of invalid withdrawal data
+	 * @return list of invalid withdrawal data
 	 */
-	static Stream<WithdrawData> provideInvalidWithdrawals() {
-		return TestDataReader.getInvalidWithdrawals().stream();
+	static List<WithdrawData> provideInvalidWithdrawals() {
+		return TestDataReader.getInvalidWithdrawals();
 	}
 
 	/**

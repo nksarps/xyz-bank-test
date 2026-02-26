@@ -2,7 +2,7 @@ package com.automation.tests.manager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.stream.Stream;
+import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -110,18 +110,18 @@ public class AddCustomerTest extends SetUp {
     /**
      * Provides valid customer data for parameterized tests.
      *
-     * @return stream of valid customer data
+     * @return list of valid customer data
      */
-    static Stream<CustomerData> provideValidCustomers() {
-        return TestDataReader.getValidCustomers().stream();
+    static List<CustomerData> provideValidCustomers() {
+        return TestDataReader.getValidCustomers();
     }
 
     /**
      * Provides invalid customer data for parameterized tests.
      *
-     * @return stream of invalid customer data
+     * @return list of invalid customer data
      */
-    static Stream<CustomerData> provideInvalidCustomers() {
-        return TestDataReader.getInvalidCustomers().stream();
+    static List<CustomerData> provideInvalidCustomers() {
+        return TestDataReader.getInvalidCustomers();
     }
 }
